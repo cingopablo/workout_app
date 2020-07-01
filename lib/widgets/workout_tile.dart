@@ -49,22 +49,24 @@ class WorkoutTile extends StatelessWidget {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      offset: Offset(2.0, 2.0),
+                      offset: Offset(2.5, 2.5),
                       blurRadius: 8,
-                      color: Theme.of(context).primaryColor.withOpacity(0.11),
+                      color: Colors.grey.withOpacity(0.2),
                     ),
                     BoxShadow(
-                      offset: Offset(-2.0, -3.0),
+                      offset: Offset(-2.5, -3.5),
                       blurRadius: 8,
-                      color: Theme.of(context).accentColor.withOpacity(0.11),
+                      color: Colors.grey.withOpacity(0.2),
                     ),
                   ],
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      Theme.of(context).primaryColorDark,
-                      Theme.of(context).primaryColorLight,
+                      Colors.grey[200],
+                      Colors.grey[50],
+                      // Theme.of(context).primaryColorDark,
+                      // Theme.of(context).primaryColorLight,
                     ],
                   ),
                   borderRadius: BorderRadius.circular(30.0),

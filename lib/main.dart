@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:workout_app/screens/home_screen.dart';
+import 'package:workout_app/screens/new_workout.dart';
 import 'package:workout_app/screens/user_detail_screen.dart';
 import 'package:workout_app/screens/workout_detail_screen.dart';
 
@@ -27,6 +28,11 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
+          headline2: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
+          ),
           headline4: TextStyle(
             fontSize: 17,
             fontWeight: FontWeight.normal,
@@ -48,6 +54,7 @@ class MyApp extends StatelessWidget {
       routes: {
         UserScreen.routeName: (ctx) => UserScreen(),
         WorkoutDetailScreen.routeName: (ctx) => WorkoutDetailScreen(),
+        NewWorkout.routeName: (ctx) => NewWorkout(),
       },
     );
   }
