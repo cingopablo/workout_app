@@ -1,22 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:workout_app/widgets/countdown_circle.dart';
+import 'package:workout_app/widgets/custom_button.dart';
+import 'package:workout_app/widgets/custom_floating_button.dart';
 
-import '../screens/timer_screen.dart';
-import '../widgets/custom_button.dart';
-import '../widgets/custom_floating_button.dart';
+class TimerScreen extends StatefulWidget {
+  static const routeName = '/timer-screen';
 
-class WorkoutDetailScreen extends StatelessWidget {
-  static const routeName = '/workout-detail';
+  @override
+  _TimerScreenState createState() => _TimerScreenState();
+}
+
+class _TimerScreenState extends State<TimerScreen> {
+  bool _isPlaying = false;
+
+  void _setPlaying(bool playing) {
+    setState(() {
+      _isPlaying = playing;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: CustomFloatingButton(
-        isLeftPositioned: true,
         icon: Icon(
-          Icons.chevron_left,
+          Icons.close,
           color: Theme.of(context).primaryColor,
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: SafeArea(
         child: Stack(
           alignment: Alignment.center,
@@ -43,14 +55,26 @@ class WorkoutDetailScreen extends StatelessWidget {
                       'Workout name',
                       style: Theme.of(context).textTheme.headline6,
                     ),
+                    CountdownCircle(
+                      workMinutes: 1,
+                      workSeconds: 0,
+                      restMinutes: 0,
+                      restSeconds: 30,
+                      repetitions: 2,
+                      isPlaying: _isPlaying,
+                      setPlaying: _setPlaying,
+                    ),
                   ],
                 ),
               ],
             ),
             CustomButton(
-              text: 'Start',
+              text: _isPlaying ? 'Pause' : 'Start',
               onPressed: () {
-                Navigator.of(context).pushNamed(TimerScreen.routeName);
+                setState(() {
+                  _isPlaying = !_isPlaying;
+                });
+                //Navigator.of(context).pushNamed(TimerScreen.routeName);
               },
             ),
           ],

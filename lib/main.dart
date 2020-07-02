@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:workout_app/screens/home_screen.dart';
-import 'package:workout_app/screens/new_workout.dart';
-import 'package:workout_app/screens/user_detail_screen.dart';
-import 'package:workout_app/screens/workout_detail_screen.dart';
+
+import './screens/home_screen.dart';
+import './screens/new_workout.dart';
+import './screens/timer_screen.dart';
+import './screens/user_detail_screen.dart';
+import './screens/workout_detail_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: TextTheme(
           headline1: TextStyle(
-            fontSize: 28,
+            fontSize: 34,
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
@@ -32,6 +34,11 @@ class MyApp extends StatelessWidget {
             fontSize: 24,
             fontWeight: FontWeight.w600,
             color: Colors.black,
+          ),
+          headline3: TextStyle(
+            fontSize: 34,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF510EC3),
           ),
           headline4: TextStyle(
             fontSize: 17,
@@ -55,6 +62,7 @@ class MyApp extends StatelessWidget {
         UserScreen.routeName: (ctx) => UserScreen(),
         WorkoutDetailScreen.routeName: (ctx) => WorkoutDetailScreen(),
         NewWorkout.routeName: (ctx) => NewWorkout(),
+        TimerScreen.routeName: (ctx) => TimerScreen(),
       },
     );
   }

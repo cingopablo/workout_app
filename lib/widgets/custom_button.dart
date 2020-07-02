@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
   final Function onPressed;
+  final String text;
 
   CustomButton({
     @required this.onPressed,
+    @required this.text,
   });
 
   @override
@@ -40,8 +42,8 @@ class CustomButton extends StatelessWidget {
                   minHeight: 36.0,
                 ), // min sizes for Material buttons
                 alignment: Alignment.center,
-                child: const Text(
-                  'Add workout',
+                child: Text(
+                  text,
                   style: TextStyle(
                     fontSize: 17,
                     color: Colors.white,

@@ -44,53 +44,49 @@ class UserScreen extends StatelessWidget {
               'First Last',
               style: Theme.of(context).textTheme.headline2,
             ),
-            Stack(
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Colors.grey[200],
-                        Colors.grey[50],
-                      ],
-                    ),
-                    borderRadius: BorderRadius.circular(30),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(2.5, 2.5),
-                        blurRadius: 8,
-                        color: Colors.grey.withOpacity(0.1),
-                      ),
-                      BoxShadow(
-                        offset: Offset(-2.5, -3.5),
-                        blurRadius: 8,
-                        color: Colors.grey.withOpacity(0.1),
-                      ),
-                    ],
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.grey[200],
+                    Colors.grey[50],
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(2.5, 2.5),
+                    blurRadius: 8,
+                    color: Colors.grey.withOpacity(0.1),
                   ),
-                  height: 350,
-                  margin: EdgeInsets.only(
-                    left: 25,
-                    right: 25,
-                    top: 20,
+                  BoxShadow(
+                    offset: Offset(-2.5, -3.5),
+                    blurRadius: 8,
+                    color: Colors.grey.withOpacity(0.1),
                   ),
-                  padding: EdgeInsets.all(
-                    25,
+                ],
+              ),
+              height: 350,
+              margin: EdgeInsets.only(
+                left: 25,
+                right: 25,
+                top: 20,
+              ),
+              padding: EdgeInsets.all(
+                25,
+              ),
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Statistics',
+                    style: Theme.of(context).textTheme.headline6,
                   ),
-                  width: double.infinity,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        'Statistics',
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
-                    ],
-                  ),
-                )
-              ],
+                ],
+              ),
             )
           ],
         ),
