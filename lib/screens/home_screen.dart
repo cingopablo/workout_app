@@ -43,6 +43,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Image.asset('assets/images/imagen.png'),
               ),
             ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Container(
+                transform: Matrix4.translationValues(-80, -45, 0),
+                width: 70,
+                height: 70,
+                child: Image.asset('assets/images/imagen.png'),
+              ),
+            ),
             CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
@@ -52,7 +61,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   pinned: true,
                   primary: true,
                   bottom: PreferredSize(
-                    child: Text(''),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        transform: Matrix4.translationValues(-35, -80, 0),
+                        width: 50,
+                        height: 50,
+                        child: Image.asset('assets/images/imagen.png'),
+                      ),
+                    ),
                     preferredSize: Size.fromHeight(20.0),
                   ),
                   flexibleSpace: FlexibleSpaceBar(
