@@ -90,15 +90,17 @@ class _TabsScreenState extends State<TabsScreen> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed(NewWorkout.routeName);
-        },
-        elevation: 2,
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Colors.white,
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: _selectedPageIndex == 0
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(NewWorkout.routeName);
+              },
+              elevation: 2,
+              backgroundColor: Theme.of(context).primaryColor,
+              foregroundColor: Colors.white,
+              child: Icon(Icons.add),
+            )
+          : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
