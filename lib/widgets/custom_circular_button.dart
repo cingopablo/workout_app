@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
 
-class CustomFloatingButton extends StatelessWidget {
-  final bool isLeftPositioned;
-  final Widget icon;
+class CustomCircularButton extends StatelessWidget {
+  final Function function;
+  final Color backgroundColor;
+  final IconData icon;
+  final Color iconColor;
 
-  CustomFloatingButton({
-    this.isLeftPositioned = false,
+  CustomCircularButton({
+    this.function,
+    this.backgroundColor,
     this.icon,
+    this.iconColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: isLeftPositioned
-          ? const EdgeInsets.only(
-              top: 150.0,
-              left: 10,
-            )
-          : const EdgeInsets.only(
-              top: 150.0,
-              right: 10,
-            ),
+    return GestureDetector(
+      onTap: function,
       child: Container(
-        width: 44,
         height: 44,
+        width: 44,
         decoration: BoxDecoration(
+          color: backgroundColor,
           borderRadius: BorderRadius.circular(50),
           boxShadow: [
             BoxShadow(
@@ -39,13 +36,9 @@ class CustomFloatingButton extends StatelessWidget {
             ),
           ],
         ),
-        child: FloatingActionButton(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          child: icon,
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+        child: Icon(
+          icon,
+          color: iconColor,
         ),
       ),
     );

@@ -17,6 +17,33 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              transform: Matrix4.translationValues(30, -80, 0),
+              width: 50,
+              height: 50,
+              child: Image.asset('assets/images/imagen.png'),
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Container(
+              transform: Matrix4.translationValues(90, 0, 0),
+              width: 200,
+              height: 200,
+              child: Image.asset('assets/images/imagen.png'),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Container(
+              transform: Matrix4.translationValues(-90, 0, 0),
+              width: 200,
+              height: 200,
+              child: Image.asset('assets/images/imagen.png'),
+            ),
+          ),
           SafeArea(
             child: CustomScrollView(
               slivers: <Widget>[

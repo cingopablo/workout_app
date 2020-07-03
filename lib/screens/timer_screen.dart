@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:workout_app/widgets/countdown_circle.dart';
+import 'package:workout_app/widgets/custom_app_bar.dart';
 import 'package:workout_app/widgets/custom_button.dart';
-import 'package:workout_app/widgets/custom_floating_button.dart';
+import 'package:workout_app/widgets/custom_circular_button.dart';
 
 class TimerScreen extends StatefulWidget {
   static const routeName = '/timer-screen';
@@ -22,13 +23,20 @@ class _TimerScreenState extends State<TimerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: CustomFloatingButton(
-        icon: Icon(
-          Icons.close,
-          color: Theme.of(context).primaryColor,
+      extendBodyBehindAppBar: true,
+      appBar: CustomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            CustomCircularButton(
+              function: () => Navigator.of(context).pop(),
+              backgroundColor: Theme.of(context).backgroundColor,
+              icon: Icons.close,
+              iconColor: Theme.of(context).primaryColor,
+            ),
+          ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: SafeArea(
         child: Stack(
           alignment: Alignment.center,
@@ -37,7 +45,6 @@ class _TimerScreenState extends State<TimerScreen> {
               padding: EdgeInsets.only(
                 left: 25,
                 right: 25,
-                top: 100,
                 bottom: 30,
               ),
               children: <Widget>[

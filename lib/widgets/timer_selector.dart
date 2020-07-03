@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 class TimerSelector extends StatelessWidget {
-  const TimerSelector({
-    Key key,
-  }) : super(key: key);
+  final bool isTime;
+
+  TimerSelector({
+    this.isTime = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,48 +20,66 @@ class TimerSelector extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text(
-            'min',
-            style: Theme.of(context).textTheme.headline4.copyWith(
-                  height: 2.5,
-                  fontWeight: FontWeight.w600,
-                ),
-          ),
-          TimerSelectorTheme(
-            picker: NumberPicker.integer(
-              infiniteLoop: true,
-              zeroPad: true,
-              highlightSelectedValue: true,
-              initialValue: 0,
-              minValue: 0,
-              maxValue: 60,
-              onChanged: (value) => {},
+          if (isTime)
+            Text(
+              'min',
+              style: Theme.of(context).textTheme.headline4.copyWith(
+                    height: 2.5,
+                    fontWeight: FontWeight.w600,
+                  ),
             ),
-          ),
-          Text(
-            ':',
-            style: Theme.of(context).textTheme.headline3.copyWith(
-                  height: 1.70,
-                ),
-          ),
-          TimerSelectorTheme(
-            picker: NumberPicker.integer(
-              infiniteLoop: true,
-              zeroPad: true,
-              highlightSelectedValue: true,
-              initialValue: 0,
-              minValue: 0,
-              maxValue: 59,
-              onChanged: (value) => {},
+          if (isTime)
+            TimerSelectorTheme(
+              picker: NumberPicker.integer(
+                infiniteLoop: true,
+                zeroPad: true,
+                highlightSelectedValue: true,
+                initialValue: 0,
+                minValue: 0,
+                maxValue: 60,
+                onChanged: (value) => {},
+              ),
             ),
-          ),
-          Text(
-            'sec',
-            style: Theme.of(context).textTheme.headline4.copyWith(
-                  height: 2.5,
-                  fontWeight: FontWeight.w600,
-                ),
-          ),
+          if (isTime)
+            Text(
+              ':',
+              style: Theme.of(context).textTheme.headline3.copyWith(
+                    height: 1.70,
+                  ),
+            ),
+          if (isTime)
+            TimerSelectorTheme(
+              picker: NumberPicker.integer(
+                infiniteLoop: true,
+                zeroPad: true,
+                highlightSelectedValue: true,
+                initialValue: 0,
+                minValue: 0,
+                maxValue: 59,
+                onChanged: (value) => {},
+              ),
+            ),
+          if (isTime)
+            Text(
+              'sec',
+              style: Theme.of(context).textTheme.headline4.copyWith(
+                    height: 2.5,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+          if (!isTime)
+            TimerSelectorTheme(
+              picker: NumberPicker.integer(
+                zeroPad: true,
+                highlightSelectedValue: true,
+                initialValue: 1,
+                minValue: 1,
+                maxValue: 20,
+                onChanged: (value) => {
+                  print('hola'),
+                },
+              ),
+            ),
         ],
       ),
     );

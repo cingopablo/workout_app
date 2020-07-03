@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:numberpicker/numberpicker.dart';
+import 'package:workout_app/widgets/custom_app_bar.dart';
 import 'package:workout_app/widgets/custom_button.dart';
 
-import '../widgets/custom_floating_button.dart';
+import '../widgets/custom_circular_button.dart';
 import '../widgets/timer_selector.dart';
 import '../widgets/card_with_title.dart';
 
@@ -16,13 +18,20 @@ class _NewWorkoutState extends State<NewWorkout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: CustomFloatingButton(
-        icon: Icon(
-          Icons.close,
-          color: Theme.of(context).primaryColor,
+      extendBodyBehindAppBar: true,
+      appBar: CustomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            CustomCircularButton(
+              function: () => Navigator.of(context).pop(),
+              backgroundColor: Theme.of(context).backgroundColor,
+              icon: Icons.close,
+              iconColor: Theme.of(context).primaryColor,
+            ),
+          ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: SafeArea(
         child: Stack(
           alignment: Alignment.center,
@@ -31,12 +40,11 @@ class _NewWorkoutState extends State<NewWorkout> {
               padding: EdgeInsets.only(
                 left: 25,
                 right: 25,
-                top: 100,
-                bottom: 50,
+                bottom: 80,
               ),
               children: <Widget>[
                 Text(
-                  'Add your workout',
+                  'New workout',
                   style: Theme.of(context).textTheme.headline1,
                 ),
                 SizedBox(
@@ -94,7 +102,9 @@ class _NewWorkoutState extends State<NewWorkout> {
                     CardWithTitle(
                       height: 230.0,
                       cardTitle: 'Number of sets',
-                      child: Text('hola'),
+                      child: TimerSelector(
+                        isTime: false,
+                      ),
                     ),
                   ],
                 ),
