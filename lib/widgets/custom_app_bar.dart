@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final double preferredHeight = 100.0;
+  final double preferredHeight = 80.0;
 
   final Widget child;
 
@@ -15,7 +15,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: Container(
         color: Colors.transparent,
         height: preferredHeight,
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+        padding: EdgeInsets.only(
+          top: 20,
+          left: 25,
+          right: 25,
+        ),
         child: child,
       ),
     );

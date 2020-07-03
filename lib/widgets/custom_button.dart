@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   final Function onPressed;
   final String text;
+  final bool withIcon;
+  final Widget icon;
 
   CustomButton({
     @required this.onPressed,
     @required this.text,
+    this.withIcon = false,
+    this.icon,
   });
 
   @override
@@ -42,13 +46,23 @@ class CustomButton extends StatelessWidget {
                   minHeight: 36.0,
                 ), // min sizes for Material buttons
                 alignment: Alignment.center,
-                child: Text(
-                  text,
-                  style: TextStyle(
-                    fontSize: 17,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    if (withIcon) icon,
+                    if (withIcon)
+                      SizedBox(
+                        width: 10,
+                      ),
+                    Text(
+                      text,
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
               ),
             ),

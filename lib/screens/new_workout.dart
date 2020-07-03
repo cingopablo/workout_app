@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:numberpicker/numberpicker.dart';
-import 'package:workout_app/widgets/custom_app_bar.dart';
-import 'package:workout_app/widgets/custom_button.dart';
 
+import '../widgets/custom_app_bar.dart';
+import '../widgets/custom_button.dart';
 import '../widgets/custom_circular_button.dart';
 import '../widgets/timer_selector.dart';
 import '../widgets/card_with_title.dart';
@@ -36,11 +35,25 @@ class _NewWorkoutState extends State<NewWorkout> {
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
+            CustomAppBar(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  CustomCircularButton(
+                    function: () => Navigator.of(context).pop(),
+                    backgroundColor: Theme.of(context).backgroundColor,
+                    icon: Icons.close,
+                    iconColor: Theme.of(context).primaryColor,
+                  ),
+                ],
+              ),
+            ),
             ListView(
               padding: EdgeInsets.only(
                 left: 25,
                 right: 25,
                 bottom: 80,
+                top: 15,
               ),
               children: <Widget>[
                 Text(
@@ -112,6 +125,11 @@ class _NewWorkoutState extends State<NewWorkout> {
             ),
             CustomButton(
               text: 'Save',
+              withIcon: true,
+              icon: Icon(
+                Icons.save,
+                color: Colors.white,
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },

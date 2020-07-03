@@ -10,6 +10,7 @@ class WorkoutDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // bottomNavigationBar: TabsScreen(),
       appBar: CustomAppBar(
           child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,6 +38,7 @@ class WorkoutDetailScreen extends StatelessWidget {
                 left: 25,
                 right: 25,
                 bottom: 30,
+                top: 15,
               ),
               children: <Widget>[
                 Text(
@@ -79,6 +81,11 @@ class WorkoutDetailScreen extends StatelessWidget {
             ),
             CustomButton(
               text: 'Start',
+              withIcon: true,
+              icon: Icon(
+                Icons.play_arrow,
+                color: Colors.white,
+              ),
               onPressed: () {
                 Navigator.of(context).pushNamed(TimerScreen.routeName);
               },
