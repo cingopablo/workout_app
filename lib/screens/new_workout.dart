@@ -35,19 +35,6 @@ class _NewWorkoutState extends State<NewWorkout> {
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
-            CustomAppBar(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  CustomCircularButton(
-                    function: () => Navigator.of(context).pop(),
-                    backgroundColor: Theme.of(context).backgroundColor,
-                    icon: Icons.close,
-                    iconColor: Theme.of(context).primaryColor,
-                  ),
-                ],
-              ),
-            ),
             ListView(
               padding: EdgeInsets.only(
                 left: 25,
