@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:workout_app/screens/history_screen.dart';
-import 'package:workout_app/screens/tabs_screen.dart';
 
+import './screens/home_screen.dart';
 import './screens/new_workout.dart';
-import './screens/timer_screen.dart';
-import 'screens/user_screen.dart';
 import './screens/workout_detail_screen.dart';
 
 void main() => runApp(MyApp());
@@ -59,14 +56,10 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: TabsScreen(),
+      home: HomeScreen(),
       routes: {
-        // '/': (ctx) => TabsScreen(),
-        UserScreen.routeName: (ctx) => UserScreen(),
-        HistoryScreen.routeName: (ctx) => HistoryScreen(),
         WorkoutDetailScreen.routeName: (ctx) => WorkoutDetailScreen(),
         NewWorkout.routeName: (ctx) => NewWorkout(),
-        TimerScreen.routeName: (ctx) => TimerScreen(),
       },
     );
   }

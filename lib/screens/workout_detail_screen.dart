@@ -1,12 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:workout_app/widgets/custom_app_bar.dart';
 
-import '../screens/timer_screen.dart';
+import '../widgets/countdown_circle.dart';
+import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_circular_button.dart';
 
-class WorkoutDetailScreen extends StatelessWidget {
+class WorkoutDetailScreen extends StatefulWidget {
   static const routeName = '/workout-detail';
+
+  @override
+  _WorkoutDetailScreenState createState() => _WorkoutDetailScreenState();
+}
+
+class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
+  bool _isPlaying = false;
+
+  void _setPlaying(bool playing) {
+    setState(() {
+      _isPlaying = playing;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,21 +89,38 @@ class WorkoutDetailScreen extends StatelessWidget {
                       'Workout name',
                       style: Theme.of(context).textTheme.headline6,
                     ),
+                    CountdownCircle(
+                      workMinutes: 1,
+                      workSeconds: 0,
+                      restMinutes: 0,
+                      restSeconds: 30,
+                      repetitions: 2,
+                      isPlaying: _isPlaying,
+                      setPlaying: _setPlaying,
+                    ),
                   ],
                 ),
               ],
             ),
             CustomButton(
-              text: 'Start',
-              withIcon: true,
-              icon: Icon(
-                Icons.play_arrow,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.of(context).pushNamed(TimerScreen.routeName);
-              },
-            ),
+                text: _isPlaying ? 'Pause' : 'Start',
+                withIcon: true,
+                icon: _isPlaying
+                    ? Icon(
+                        Icons.pause,
+                        color: Colors.white,
+                      )
+                    : Icon(
+                        Icons.play_arrow,
+                        color: Colors.white,
+                      ),
+                onPressed: () {
+                  setState(
+                    () {
+                      _isPlaying = !_isPlaying;
+                    },
+                  );
+                }),
           ],
         ),
       ),

@@ -15,15 +15,16 @@ class CardWithTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Colors.grey[200],
-            Colors.grey[50],
-          ],
-        ),
-        borderRadius: BorderRadius.circular(30),
+        // gradient: LinearGradient(
+        //   begin: Alignment.topLeft,
+        //   end: Alignment.bottomRight,
+        //   colors: [
+        //     Colors.grey[200],
+        //     Colors.grey[50],
+        //   ],
+        // ),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
             offset: Offset(2.5, 2.5),

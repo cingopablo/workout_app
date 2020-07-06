@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../screens/user_screen.dart';
-
 class MainHeader extends StatelessWidget {
   const MainHeader({
     Key key,

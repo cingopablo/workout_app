@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../screens/workout_detail_screen.dart';
 
@@ -13,7 +14,7 @@ class WorkoutTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
             offset: Offset(2, 2),
@@ -38,7 +39,7 @@ class WorkoutTile extends StatelessWidget {
           Navigator.of(context).pushNamed(WorkoutDetailScreen.routeName),
         },
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(20),
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
             child: Stack(
@@ -69,7 +70,7 @@ class WorkoutTile extends StatelessWidget {
                         Color(0xffFAFAFA).withOpacity(0.75),
                       ],
                     ),
-                    borderRadius: BorderRadius.circular(30.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                   child: Container(
                     margin: EdgeInsets.symmetric(
@@ -89,7 +90,7 @@ class WorkoutTile extends StatelessWidget {
                                   '2',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline1
+                                      .headline2
                                       .copyWith(
                                         color: Colors.black,
                                         height: 1,
@@ -109,23 +110,52 @@ class WorkoutTile extends StatelessWidget {
                             SizedBox(
                               width: 20,
                             ),
-                            Wrap(
-                              direction: Axis.vertical,
-                              crossAxisAlignment: WrapCrossAlignment.start,
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
                                   'Skipping rope',
                                   style: Theme.of(context).textTheme.headline6,
                                 ),
-                                Text(
-                                  'Workout time: 30 min',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline5
-                                      .copyWith(height: 2.0),
+                                SizedBox(
+                                  height: 10,
                                 ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Row(
+                                      children: <Widget>[
+                                        FaIcon(
+                                          FontAwesomeIcons.running,
+                                          size: 18,
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text('02:00'),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Row(
+                                      children: <Widget>[
+                                        FaIcon(
+                                          FontAwesomeIcons.coffee,
+                                          size: 18,
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text('00:30'),
+                                      ],
+                                    ),
+                                  ],
+                                )
                               ],
-                            )
+                            ),
                           ],
                         ),
                         Icon(

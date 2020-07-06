@@ -4,16 +4,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double preferredHeight = 80.0;
 
   final Widget child;
+  final Color color;
 
   CustomAppBar({
     this.child,
+    this.color = Colors.transparent,
   });
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        color: Colors.transparent,
+        color: color,
         height: preferredHeight,
         padding: EdgeInsets.only(
           top: 20,
