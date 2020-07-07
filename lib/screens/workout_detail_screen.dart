@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:screen/screen.dart';
 
-import '../widgets/countdown_circle.dart';
+import '../models/settings.dart';
+import '../models/exercise.dart';
+import '../models/workout.dart';
+import '../utils/format_time.dart';
+import '../utils/step_name.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_circular_button.dart';
 
@@ -13,12 +18,62 @@ class WorkoutDetailScreen extends StatefulWidget {
 }
 
 class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
-  bool _isPlaying = false;
+  Workout _workout;
+  Exercise _exercise = Exercise(
+    sets: 1,
+    repetitions: 1,
+    exerciseTime: const Duration(seconds: 10),
+    restTime: const Duration(seconds: 10),
+    breakTime: const Duration(seconds: 60),
+  );
+  Settings _settings = Settings();
 
-  void _setPlaying(bool playing) {
-    setState(() {
-      _isPlaying = playing;
-    });
+  @override
+  initState() {
+    super.initState();
+    _workout = Workout(
+      _settings,
+      _exercise,
+      _onWorkoutChanged,
+    );
+  }
+
+  @override
+  dispose() {
+    _workout.dispose();
+    Screen.keepOn(false);
+    super.dispose();
+  }
+
+  _onWorkoutChanged() {
+    if (_workout.step == WorkoutState.finished) {
+      Screen.keepOn(false);
+    }
+    this.setState(() {});
+  }
+
+  _getBackgroundColor() {
+    switch (_workout.step) {
+      case WorkoutState.exercising:
+        return Colors.green;
+      case WorkoutState.starting:
+      case WorkoutState.resting:
+        return Colors.blue;
+      case WorkoutState.breaking:
+        return Colors.red;
+      default:
+        return Colors.white;
+    }
+  }
+
+  _pause() {
+    _workout.pause();
+    Screen.keepOn(false);
+  }
+
+  _start() {
+    _workout.start();
+    Screen.keepOn(true);
   }
 
   @override
@@ -36,11 +91,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
         },
         child: FloatingActionButton.extended(
           isExtended: true,
-          onPressed: () {
-            setState(() {
-              _isPlaying = !_isPlaying;
-            });
-          },
+          onPressed: _workout.isActive ? _pause : _start,
           elevation: 2,
           backgroundColor: Theme.of(context).primaryColor,
           foregroundColor: Colors.white,
@@ -48,9 +99,9 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
-                child: _isPlaying ? Icon(Icons.pause) : Icon(Icons.play_arrow),
+                child: Icon(_workout.isActive ? Icons.pause : Icons.play_arrow),
               ),
-              _isPlaying ? Text('Pause') : Text('Start'),
+              _workout.isActive ? Text('Pause') : Text('Start'),
             ],
           ),
         ),
@@ -140,15 +191,13 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                CountdownCircle(
-                  workMinutes: 1,
-                  workSeconds: 0,
-                  restMinutes: 0,
-                  restSeconds: 30,
-                  repetitions: 2,
-                  isPlaying: _isPlaying,
-                  setPlaying: _setPlaying,
+                Text(stepName(_workout.step), style: TextStyle(fontSize: 40.0)),
+                Text(
+                  formatTime(
+                      _workout.timeLeft ?? _workout.config.getStartDelay()),
                 ),
+                Text(
+                    '${formatTime(_workout.totalTime)} / ${formatTime(_workout.config.getTotalTime())}'),
               ],
             ),
           ],

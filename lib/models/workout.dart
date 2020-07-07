@@ -1,0 +1,190 @@
+import 'dart:async';
+
+import 'package:audioplayers/audio_cache.dart';
+
+import './exercise.dart';
+import './settings.dart';
+
+var player = AudioCache(prefix: 'sounds/');
+
+enum WorkoutState {
+  initial,
+  starting,
+  exercising,
+  resting,
+  breaking,
+  coolDown,
+  finished,
+}
+
+class Workout {
+  Settings _settings;
+  Exercise _config;
+
+  /// Callback for when the workout's state has changed.
+  Function _onStateChange;
+
+  WorkoutState _step = WorkoutState.initial;
+
+  Timer _timer;
+
+  /// Time left in the current step
+  Duration _timeLeft = Duration(seconds: 0);
+  // Duration _timeLeft;
+
+  Duration _totalTime = Duration(seconds: 0);
+
+  /// Current set
+  int _set = 0;
+
+  /// Current rep
+  int _rep = 0;
+
+  // Music player
+
+  Workout(
+    this._settings,
+    this._config,
+    this._onStateChange,
+  );
+
+  /// Starts or resumes the workout
+  start() {
+    if (_step == WorkoutState.initial) {
+      _step = WorkoutState.starting;
+      if (_config.startDelay.inSeconds == 0) {
+        _nextStep();
+      } else {
+        _timeLeft = _config.startDelay;
+      }
+    }
+    _timer = Timer.periodic(Duration(seconds: 1), _tick);
+    _onStateChange();
+  }
+
+  /// Pauses the workout
+  pause() {
+    _timer.cancel();
+    _onStateChange();
+  }
+
+  /// Stops the timer without triggering the state change callback.
+  dispose() {
+    _timer.cancel();
+  }
+
+  _tick(Timer timer) {
+    if (_step != WorkoutState.starting) {
+      _totalTime += Duration(seconds: 1);
+    }
+
+    if (_timeLeft.inSeconds == 1) {
+      _nextStep();
+    } else {
+      _timeLeft -= Duration(seconds: 1);
+      if (_timeLeft.inSeconds <= 3 && _timeLeft.inSeconds >= 1) {
+        _playSound(_settings.countdownPip);
+      }
+    }
+
+    _onStateChange();
+  }
+
+  /// Moves the workout to the next step and sets up state for it.
+  _nextStep() {
+    if (_step == WorkoutState.exercising) {
+      if (rep == _config.repetitions) {
+        if (set == _config.sets) {
+          _coolDown();
+        } else {
+          _startBreak();
+        }
+      } else {
+        _startRest();
+      }
+    } else if (_step == WorkoutState.resting) {
+      _startRep();
+    } else if (_step == WorkoutState.starting ||
+        _step == WorkoutState.breaking) {
+      _startSet();
+    } else if (_step == WorkoutState.coolDown) {
+      _finish();
+    }
+  }
+
+  Future _playSound(String sound) {
+    // if (_settings.silentMode) {
+    //   return Future.value();
+    // }
+    return player.play(sound);
+  }
+
+  _startRest() {
+    _step = WorkoutState.resting;
+    if (_config.restTime.inSeconds == 0) {
+      _nextStep();
+      return;
+    }
+    _timeLeft = _config.restTime;
+    _playSound(_settings.startRest);
+  }
+
+  _startRep() {
+    _rep++;
+    _step = WorkoutState.exercising;
+    _timeLeft = _config.exerciseTime;
+    _playSound(_settings.startRep);
+  }
+
+  _startBreak() {
+    _step = WorkoutState.breaking;
+    if (_config.breakTime.inSeconds == 0) {
+      _nextStep();
+      return;
+    }
+    _timeLeft = _config.breakTime;
+    _playSound(_settings.startBreak);
+  }
+
+  _startSet() {
+    _set++;
+    _rep = 1;
+    _step = WorkoutState.exercising;
+    _timeLeft = _config.exerciseTime;
+    _playSound(_settings.startSet);
+  }
+
+  _coolDown() {
+    _step = WorkoutState.coolDown;
+    _timeLeft = _config.coolDownTime;
+    _playSound(_settings.startBreak);
+  }
+
+  _finish() {
+    _timer.cancel();
+    _step = WorkoutState.finished;
+    _timeLeft = Duration(seconds: 0);
+    _playSound(_settings.endWorkout).then((p) {
+      if (p == null) {
+        return;
+      }
+      p.onPlayerCompletion.first.then((_) {
+        _playSound(_settings.endWorkout);
+      });
+    });
+  }
+
+  get config => _config;
+
+  get set => _set;
+
+  get rep => _rep;
+
+  get step => _step;
+
+  get timeLeft => _timeLeft;
+
+  get totalTime => _totalTime;
+
+  get isActive => _timer != null && _timer.isActive;
+}
