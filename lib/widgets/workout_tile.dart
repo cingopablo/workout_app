@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../screens/workout_detail_screen.dart';
+import '../screens/workout_preview_screen.dart';
 
 class WorkoutTile extends StatelessWidget {
   const WorkoutTile({
@@ -36,7 +36,7 @@ class WorkoutTile extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () => {
-          Navigator.of(context).pushNamed(WorkoutDetailScreen.routeName),
+          Navigator.of(context).pushNamed(WorkoutPreviewScreen.routeName),
         },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),

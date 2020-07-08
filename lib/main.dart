@@ -3,7 +3,7 @@ import 'package:workout_app/screens/workout_timer_screen.dart';
 
 import './screens/home_screen.dart';
 import './screens/new_workout.dart';
-import './screens/workout_detail_screen.dart';
+import './screens/workout_preview_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
       ),
       home: HomeScreen(),
       routes: {
-        WorkoutDetailScreen.routeName: (ctx) => WorkoutDetailScreen(),
+        WorkoutPreviewScreen.routeName: (ctx) => WorkoutPreviewScreen(),
         WorkoutTimerScreen.routeName: (ctx) => WorkoutTimerScreen(),
         NewWorkout.routeName: (ctx) => NewWorkout(),
       },

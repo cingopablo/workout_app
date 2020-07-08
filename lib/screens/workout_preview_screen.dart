@@ -6,14 +6,14 @@ import '../models/exercise.dart';
 import '../models/workout.dart';
 import '../utils/format_time.dart';
 
-class WorkoutDetailScreen extends StatefulWidget {
+class WorkoutPreviewScreen extends StatefulWidget {
   static const routeName = '/workout-detail';
 
   @override
-  _WorkoutDetailScreenState createState() => _WorkoutDetailScreenState();
+  _WorkoutPreviewScreenState createState() => _WorkoutPreviewScreenState();
 }
 
-class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
+class _WorkoutPreviewScreenState extends State<WorkoutPreviewScreen> {
   Workout _workout;
   Exercise _exercise = Exercise(
     sets: 1,
