@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import '../widgets/custom_app_bar.dart';
-import '../widgets/custom_button.dart';
-import '../widgets/custom_circular_button.dart';
 import '../widgets/timer_selector.dart';
 import '../widgets/card_with_title.dart';
 
@@ -88,18 +85,17 @@ class _NewWorkoutState extends State<NewWorkout> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      appBar: CustomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            CustomCircularButton(
-              function: () => Navigator.of(context).pop(),
-              backgroundColor: Theme.of(context).backgroundColor,
-              icon: Icons.close,
-              iconColor: Theme.of(context).primaryColor,
-            ),
-          ],
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).backgroundColor,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.black),
+        leading: IconButton(
+          icon: Icon(Icons.close),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
+        centerTitle: true,
       ),
       body: SafeArea(
         child: Stack(
@@ -162,6 +158,20 @@ class _NewWorkoutState extends State<NewWorkout> {
                     ),
                     CardWithTitle(
                       height: 230.0,
+                      cardTitle: 'Number of sets',
+                      child: TimerSelector(
+                        isTime: false,
+                      ),
+                    ),
+                    CardWithTitle(
+                      height: 230.0,
+                      cardTitle: 'Number of repetitions',
+                      child: TimerSelector(
+                        isTime: false,
+                      ),
+                    ),
+                    CardWithTitle(
+                      height: 230.0,
                       cardTitle: 'Exercise time',
                       child: TimerSelector(),
                     ),
@@ -170,28 +180,10 @@ class _NewWorkoutState extends State<NewWorkout> {
                       cardTitle: 'Resting time',
                       child: TimerSelector(),
                     ),
-                    CardWithTitle(
-                      height: 230.0,
-                      cardTitle: 'Number of sets',
-                      child: TimerSelector(
-                        isTime: false,
-                      ),
-                    ),
                   ],
                 ),
               ],
             ),
-            // CustomButton(
-            //   text: 'Save',
-            //   withIcon: true,
-            //   icon: Icon(
-            //     Icons.save,
-            //     color: Colors.white,
-            //   ),
-            //   onPressed: () {
-            //     Navigator.of(context).pop();
-            //   },
-            // ),
           ],
         ),
       ),

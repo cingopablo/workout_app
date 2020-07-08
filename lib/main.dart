@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:workout_app/screens/workout_timer_screen.dart';
 
 import './screens/home_screen.dart';
 import './screens/new_workout.dart';
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
       home: HomeScreen(),
       routes: {
         WorkoutDetailScreen.routeName: (ctx) => WorkoutDetailScreen(),
+        WorkoutTimerScreen.routeName: (ctx) => WorkoutTimerScreen(),
         NewWorkout.routeName: (ctx) => NewWorkout(),
       },
     );

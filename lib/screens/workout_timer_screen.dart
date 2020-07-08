@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:workout_app/screens/workout_timer_screen.dart';
+import 'package:screen/screen.dart';
 
+import '../models/settings.dart';
 import '../models/exercise.dart';
 import '../models/workout.dart';
 import '../utils/format_time.dart';
+import '../utils/step_name.dart';
 
-class WorkoutDetailScreen extends StatefulWidget {
-  static const routeName = '/workout-detail';
+class WorkoutTimerScreen extends StatefulWidget {
+  static const routeName = '/workout-timer';
 
   @override
-  _WorkoutDetailScreenState createState() => _WorkoutDetailScreenState();
+  _WorkoutTimerScreenState createState() => _WorkoutTimerScreenState();
 }
 
-class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
+class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
   Workout _workout;
   Exercise _exercise = Exercise(
     sets: 1,
@@ -22,12 +23,54 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
     restTime: const Duration(seconds: 5),
     breakTime: const Duration(seconds: 60),
   );
+  Settings _settings = Settings();
 
-  Duration getTotalTime(exercise) {
-    return (exercise.exerciseTime * exercise.sets * exercise.repetitions) +
-        (exercise.restTime * exercise.sets * (exercise.repetitions - 1)) +
-        (exercise.breakTime * (exercise.sets - 1)) +
-        exercise.coolDownTime;
+  @override
+  initState() {
+    super.initState();
+    _workout = Workout(
+      _settings,
+      _exercise,
+      _onWorkoutChanged,
+    );
+  }
+
+  @override
+  dispose() {
+    _workout.dispose();
+    Screen.keepOn(false);
+    super.dispose();
+  }
+
+  _onWorkoutChanged() {
+    if (_workout.step == WorkoutState.finished) {
+      Screen.keepOn(false);
+    }
+    this.setState(() {});
+  }
+
+  _getBackgroundColor() {
+    switch (_workout.step) {
+      case WorkoutState.exercising:
+        return Colors.green;
+      case WorkoutState.starting:
+      case WorkoutState.resting:
+        return Colors.blue;
+      case WorkoutState.breaking:
+        return Colors.red;
+      default:
+        return Colors.white;
+    }
+  }
+
+  _pause() {
+    _workout.pause();
+    Screen.keepOn(false);
+  }
+
+  _start() {
+    _workout.start();
+    Screen.keepOn(true);
   }
 
   @override
@@ -45,30 +88,27 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
         },
         child: FloatingActionButton.extended(
           isExtended: true,
-          onPressed: () {
-            Navigator.of(context).pushNamed(WorkoutTimerScreen.routeName);
-          },
+          onPressed: _workout.isActive ? _pause : _start,
           elevation: 2,
           backgroundColor: Theme.of(context).primaryColor,
           foregroundColor: Colors.white,
-          label: Text('Continue'),
+          label: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Icon(_workout.isActive ? Icons.pause : Icons.play_arrow),
+              ),
+              _workout.isActive ? Text('Pause') : Text('Start workout'),
+            ],
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
-        title: Text('Preview', style: Theme.of(context).textTheme.headline6),
         iconTheme: IconThemeData(color: Colors.black),
         centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(
-                Icons.delete,
-                color: Theme.of(context).errorColor,
-              ),
-              onPressed: () {}),
-        ],
       ),
       body: SafeArea(
         child: Stack(
@@ -82,15 +122,8 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                 top: 15,
               ),
               children: <Widget>[
-                Text(
-                  'Skipping rope',
-                  style: Theme.of(context).textTheme.headline1,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'Workout time: ${formatTime(getTotalTime(_exercise))}',
+                /* Text(
+                  'Workout time: ${formatTime(_workout.config.getTotalTime())}',
                   style: Theme.of(context).textTheme.headline4,
                 ),
                 SizedBox(
@@ -111,7 +144,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                             SizedBox(
                               width: 5,
                             ),
-                            Text(formatTime(_exercise.exerciseTime)),
+                            Text(formatTime(_workout.config.getExerciseTime())),
                           ],
                         ),
                         SizedBox(
@@ -126,7 +159,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                             SizedBox(
                               width: 5,
                             ),
-                            Text(formatTime(_exercise.restTime)),
+                            Text(formatTime(_workout.config.getRestTime())),
                           ],
                         ),
                       ],
@@ -135,7 +168,21 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                 ),
                 SizedBox(
                   height: 20,
+                ), */
+                Text(
+                  stepName(_workout.step),
+                  style: Theme.of(context).textTheme.headline1,
                 ),
+                Text(
+                  formatTime(
+                      _workout.timeLeft ?? _workout.config.getStartDelay()),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline3
+                      .copyWith(fontSize: 100),
+                ),
+                Text(
+                    '${formatTime(_workout.totalTime)} / ${formatTime(_workout.config.getTotalTime())}'),
               ],
             ),
           ],

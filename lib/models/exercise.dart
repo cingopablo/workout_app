@@ -42,4 +42,12 @@ class Exercise {
   Duration getStartDelay() {
     return startDelay;
   }
+
+  Duration getExerciseTime() {
+    return exerciseTime;
+  }
+
+  Duration getRestTime() {
+    return restTime;
+  }
 }
