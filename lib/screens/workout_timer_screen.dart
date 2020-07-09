@@ -103,7 +103,7 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
           ),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
@@ -175,14 +175,16 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
                 ),
                 Text(
                   formatTime(
-                      _workout.timeLeft ?? _workout.config.getStartDelay()),
+                    duration:
+                        _workout.timeLeft ?? _workout.config.getStartDelay(),
+                  ),
                   style: Theme.of(context)
                       .textTheme
                       .headline3
                       .copyWith(fontSize: 100),
                 ),
                 Text(
-                    '${formatTime(_workout.totalTime)} / ${formatTime(_workout.config.getTotalTime())}'),
+                    '${formatTime(duration: _workout.totalTime)} / ${formatTime(duration: _workout.config.getTotalTime())}'),
               ],
             ),
           ],

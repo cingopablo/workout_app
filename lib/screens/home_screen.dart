@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import '../screens/new_workout.dart';
-import '../widgets/workout_tile.dart';
-import '../widgets/main_header.dart';
+import '../widgets/home_screen/workout_tile.dart';
+import '../widgets/custom_flexible_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -13,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   ScrollController _scrollController;
   bool _isExtended = true;
+  var now = DateTime.now();
 
   void _switchActionBar(value) {
     setState(() {
@@ -72,103 +73,77 @@ class _HomeScreenState extends State<HomeScreen> {
           label: _isExtended
               ? Row(
                   children: <Widget>[
-                    Padding(
+                    const Padding(
                       padding: const EdgeInsets.only(right: 8.0),
-                      child: Icon(Icons.add),
+                      child: const Icon(Icons.add),
                     ),
-                    Text("Add training"),
+                    const Text("Add training"),
                   ],
                 )
-              : Icon(Icons.add),
+              : const Icon(Icons.add),
         ),
       ),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   isExtended: _isExtended,
-      //   onPressed: () {
-      //     Navigator.of(context).pushNamed(NewWorkout.routeName);
-      //   },
-      //   elevation: 2,
-      //   backgroundColor: Theme.of(context).primaryColor,
-      //   foregroundColor: Colors.white,
-      //   label: _isExtended
-      //       ? Row(
-      //           children: <Widget>[
-      //             Padding(
-      //               padding: const EdgeInsets.only(right: 8.0),
-      //               child: Icon(Icons.add),
-      //             ),
-      //             Text("Add training"),
-      //           ],
-      //         )
-      //       : Icon(Icons.add),
-      // ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                transform: Matrix4.translationValues(30, -80, 0),
-                width: 50,
-                height: 50,
-                child: Image.asset('assets/images/imagen.png'),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Container(
-                transform: Matrix4.translationValues(90, 0, 0),
-                width: 200,
-                height: 200,
-                child: Image.asset('assets/images/imagen.png'),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Container(
-                transform: Matrix4.translationValues(-90, 0, 0),
-                width: 200,
-                height: 200,
-                child: Image.asset('assets/images/imagen.png'),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Container(
-                transform: Matrix4.translationValues(-80, -45, 0),
-                width: 70,
-                height: 70,
-                child: Image.asset('assets/images/imagen.png'),
-              ),
-            ),
+            // Align(
+            //   alignment: Alignment.centerLeft,
+            //   child: Container(
+            //     transform: Matrix4.translationValues(30, -80, 0),
+            //     width: 50,
+            //     height: 50,
+            //     child: Image.asset('assets/images/imagen.png'),
+            //   ),
+            // ),
+            // Align(
+            //   alignment: Alignment.centerRight,
+            //   child: Container(
+            //     transform: Matrix4.translationValues(90, 0, 0),
+            //     width: 200,
+            //     height: 200,
+            //     child: Image.asset('assets/images/imagen.png'),
+            //   ),
+            // ),
+            // Align(
+            //   alignment: Alignment.bottomLeft,
+            //   child: Container(
+            //     transform: Matrix4.translationValues(-90, 0, 0),
+            //     width: 200,
+            //     height: 200,
+            //     child: Image.asset('assets/images/imagen.png'),
+            //   ),
+            // ),
+            // Align(
+            //   alignment: Alignment.bottomRight,
+            //   child: Container(
+            //     transform: Matrix4.translationValues(-80, -45, 0),
+            //     width: 70,
+            //     height: 70,
+            //     child: Image.asset('assets/images/imagen.png'),
+            //   ),
+            // ),
             CustomScrollView(
               controller: _scrollController,
               slivers: <Widget>[
                 SliverAppBar(
                   elevation: 0,
                   expandedHeight: 160,
+                  iconTheme: const IconThemeData(color: Colors.black),
                   backgroundColor: Theme.of(context).backgroundColor,
                   pinned: true,
+                  floating: true,
                   primary: true,
-                  bottom: PreferredSize(
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Container(
-                        transform: Matrix4.translationValues(-35, -80, 0),
-                        width: 50,
-                        height: 50,
-                        child: Image.asset('assets/images/imagen.png'),
-                      ),
-                    ),
-                    preferredSize: Size.fromHeight(20.0),
-                  ),
+                  centerTitle: true,
+                  title: Text('My workouts',
+                      style: Theme.of(context).textTheme.headline6),
                   flexibleSpace: FlexibleSpaceBar(
-                    titlePadding:
-                        EdgeInsetsDirectional.only(start: 0, bottom: 15),
-                    centerTitle: false,
-                    title: MainHeader(),
+                    background: CustomFlexibleBar(
+                      now: now,
+                      withDate: true,
+                      title: 'Hello there',
+                    ),
                   ),
                 ),
                 SliverList(

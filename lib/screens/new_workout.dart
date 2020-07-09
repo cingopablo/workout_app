@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import '../widgets/timer_selector.dart';
-import '../widgets/card_with_title.dart';
+import '../widgets/custom_flexible_bar.dart';
+import '../widgets/new_workout/input_text.dart';
+import '../widgets/new_workout/timer_selector.dart';
+import '../widgets/new_workout/card_with_title.dart';
 
 class NewWorkout extends StatefulWidget {
   static const routeName = '/new_workout';
@@ -14,6 +16,7 @@ class NewWorkout extends StatefulWidget {
 class _NewWorkoutState extends State<NewWorkout> {
   ScrollController _scrollController;
   bool _isExtended = true;
+  var now = DateTime.now();
 
   void _switchActionBar(value) {
     setState(() {
@@ -74,115 +77,72 @@ class _NewWorkoutState extends State<NewWorkout> {
           label: _isExtended
               ? Row(
                   children: <Widget>[
-                    Padding(
+                    const Padding(
                       padding: const EdgeInsets.only(right: 8.0),
-                      child: Icon(Icons.save),
+                      child: const Icon(Icons.save),
                     ),
-                    Text("Save"),
+                    const Text("Save"),
                   ],
                 )
-              : Icon(Icons.save),
+              : const Icon(Icons.save),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).backgroundColor,
-        elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
-        leading: IconButton(
-          icon: Icon(Icons.close),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        centerTitle: true,
-      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
-        child: Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            ListView(
-              controller: _scrollController,
-              padding: EdgeInsets.only(
-                left: 25,
-                right: 25,
-                bottom: 80,
-                top: 15,
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers: <Widget>[
+            SliverAppBar(
+              elevation: 0,
+              expandedHeight: 160,
+              iconTheme: const IconThemeData(color: Colors.black),
+              backgroundColor: Theme.of(context).backgroundColor,
+              pinned: true,
+              floating: true,
+              primary: true,
+              centerTitle: true,
+              title: Text('New workout',
+                  style: Theme.of(context).textTheme.headline6),
+              flexibleSpace: FlexibleSpaceBar(
+                background: CustomFlexibleBar(
+                  now: now,
+                  title: 'Add your thing',
+                ),
               ),
-              children: <Widget>[
-                Text(
-                  'New workout',
-                  style: Theme.of(context).textTheme.headline1,
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate([
+                InputText(),
+                CardWithTitle(
+                  height: 80,
+                  cardTitle: 'Number of sets',
+                  child: TimerSelector(
+                    isTime: false,
+                  ),
                 ),
-                SizedBox(
-                  height: 20,
+                CardWithTitle(
+                  height: 80,
+                  cardTitle: 'Number of repetitions',
+                  child: TimerSelector(
+                    isTime: false,
+                  ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'Workout name',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(
-                        top: 15,
-                      ),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            offset: Offset(2.5, 2.5),
-                            blurRadius: 8,
-                            color: Colors.grey.withOpacity(0.2),
-                          ),
-                          BoxShadow(
-                            offset: Offset(-2.5, -3.5),
-                            blurRadius: 8,
-                            color: Colors.grey.withOpacity(0.2),
-                          ),
-                        ],
-                      ),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          //hintText: 'Enter a search term',
-                          fillColor: Colors.white,
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 15,
-                          ),
-                        ),
-                      ),
-                    ),
-                    CardWithTitle(
-                      height: 230.0,
-                      cardTitle: 'Number of sets',
-                      child: TimerSelector(
-                        isTime: false,
-                      ),
-                    ),
-                    CardWithTitle(
-                      height: 230.0,
-                      cardTitle: 'Number of repetitions',
-                      child: TimerSelector(
-                        isTime: false,
-                      ),
-                    ),
-                    CardWithTitle(
-                      height: 230.0,
-                      cardTitle: 'Exercise time',
-                      child: TimerSelector(),
-                    ),
-                    CardWithTitle(
-                      height: 230.0,
-                      cardTitle: 'Resting time',
-                      child: TimerSelector(),
-                    ),
-                  ],
+                CardWithTitle(
+                  cardTitle: 'Exercise time',
+                  child: TimerSelector(),
                 ),
-              ],
+                CardWithTitle(
+                  cardTitle: 'Resting time',
+                  child: TimerSelector(),
+                ),
+                CardWithTitle(
+                  cardTitle: 'Resting time',
+                  child: TimerSelector(),
+                ),
+                const SizedBox(
+                  height: 45,
+                ),
+              ]),
             ),
           ],
         ),

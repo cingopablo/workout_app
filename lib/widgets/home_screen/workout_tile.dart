@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../screens/workout_preview_screen.dart';
+import '../../screens/workout_preview_screen.dart';
 
 class WorkoutTile extends StatelessWidget {
   const WorkoutTile({
@@ -17,18 +17,18 @@ class WorkoutTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            offset: Offset(2, 2),
+            offset: const Offset(2, 2),
             blurRadius: 8,
             color: Colors.grey.withOpacity(0.4),
           ),
           BoxShadow(
-            offset: Offset(-2, -2),
+            offset: const Offset(-2, -2),
             blurRadius: 8,
             color: Colors.grey[50].withOpacity(0.3),
           ),
         ],
       ),
-      margin: EdgeInsets.fromLTRB(
+      margin: const EdgeInsets.fromLTRB(
         25.0,
         8.0,
         25.0,
@@ -48,32 +48,18 @@ class WorkoutTile extends StatelessWidget {
                   width: double.infinity,
                   height: 108.0,
                   decoration: BoxDecoration(
-                    // boxShadow: [
-                    //   BoxShadow(
-                    //     offset: Offset(2.5, 2.5),
-                    //     blurRadius: 8,
-                    //     color: Colors.white38,
-                    //   ),
-                    //   BoxShadow(
-                    //     offset: Offset(-2.5, -2.5),
-                    //     blurRadius: 8,
-                    //     color: Colors.white38,
-                    //   ),
-                    // ],
                     gradient: LinearGradient(
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                       colors: [
-                        // Theme.of(context).primaryColor,
-                        // Theme.of(context).accentColor,
-                        Color(0xffEEEEEE).withOpacity(0.6),
-                        Color(0xffFAFAFA).withOpacity(0.75),
+                        const Color(0xffEEEEEE).withOpacity(0.6),
+                        const Color(0xffFAFAFA).withOpacity(0.75),
                       ],
                     ),
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                   child: Container(
-                    margin: EdgeInsets.symmetric(
+                    margin: const EdgeInsets.symmetric(
                       horizontal: 30,
                     ),
                     child: Row(
@@ -107,7 +93,7 @@ class WorkoutTile extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             Column(
@@ -118,7 +104,7 @@ class WorkoutTile extends StatelessWidget {
                                   'Skipping rope',
                                   style: Theme.of(context).textTheme.headline6,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Row(
@@ -127,29 +113,29 @@ class WorkoutTile extends StatelessWidget {
                                   children: <Widget>[
                                     Row(
                                       children: <Widget>[
-                                        FaIcon(
+                                        const FaIcon(
                                           FontAwesomeIcons.running,
                                           size: 18,
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 5,
                                         ),
-                                        Text('02:00'),
+                                        const Text('02:00'),
                                       ],
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     Row(
                                       children: <Widget>[
-                                        FaIcon(
+                                        const FaIcon(
                                           FontAwesomeIcons.coffee,
                                           size: 18,
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 5,
                                         ),
-                                        Text('00:30'),
+                                        const Text('00:30'),
                                       ],
                                     ),
                                   ],
@@ -158,7 +144,7 @@ class WorkoutTile extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Icon(
+                        const Icon(
                           Icons.chevron_right,
                           size: 36,
                         ),
