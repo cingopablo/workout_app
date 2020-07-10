@@ -136,7 +136,7 @@ class _NewWorkoutState extends State<NewWorkout> {
                   child: TimerSelector(),
                 ),
                 CardWithTitle(
-                  cardTitle: 'Resting time',
+                  cardTitle: 'Break between sets',
                   child: TimerSelector(),
                 ),
                 const SizedBox(

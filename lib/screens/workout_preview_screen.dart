@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../screens/workout_timer_screen.dart';
 import '../models/exercise.dart';
 import '../utils/format_time.dart';
+import '../widgets/custom_flexible_bar.dart';
+import '../screens/workout_timer_screen.dart';
 
 class WorkoutPreviewScreen extends StatefulWidget {
   static const routeName = '/workout-detail';
@@ -13,6 +13,7 @@ class WorkoutPreviewScreen extends StatefulWidget {
 }
 
 class _WorkoutPreviewScreenState extends State<WorkoutPreviewScreen> {
+  var now = DateTime.now();
   Exercise _exercise = Exercise(
     sets: 1,
     repetitions: 1,
@@ -77,115 +78,266 @@ class _WorkoutPreviewScreenState extends State<WorkoutPreviewScreen> {
               title:
                   Text('Preview', style: Theme.of(context).textTheme.headline6),
               flexibleSpace: FlexibleSpaceBar(
-                background: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 25,
-                    right: 25,
-                  ),
-                  child: Container(
-                    margin: EdgeInsets.only(top: 70),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'Jul 8, 2020',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline4
-                              .copyWith(color: Colors.black),
-                        ),
-                        Text(
-                          'Skipping rope',
-                          style: Theme.of(context).textTheme.headline1,
-                        ),
-                        Text(
-                          'Total time ${formatTime(isPreview: true, duration: getTotalTime(_exercise))}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline4
-                              .copyWith(color: Colors.black),
-                        ),
-                      ],
-                    ),
-                  ),
+                background: CustomFlexibleBar(
+                  now: now,
+                  withDate: true,
+                  title: 'Skipping rope',
                 ),
               ),
             ),
             SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (ctx, index) => Column(
-                  children: <Widget>[
-                    Text('Set ${index + 1}'),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        FaIcon(
-                          FontAwesomeIcons.running,
-                          size: 34,
+              delegate: SliverChildListDelegate.fixed([
+                Container(
+                  //padding: EdgeInsets.all(30),
+                  margin: EdgeInsets.symmetric(horizontal: 25),
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.width,
+
+                  child: GridView.count(
+                    childAspectRatio: 1.4,
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 5,
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              offset: const Offset(2.5, 2.5),
+                              blurRadius: 8,
+                              color: Colors.grey.withOpacity(0.1),
+                            ),
+                            BoxShadow(
+                              offset: const Offset(-2.5, -3.5),
+                              blurRadius: 8,
+                              color: Colors.grey.withOpacity(0.1),
+                            ),
+                          ],
                         ),
-                        Text('Exercise'),
-                        SizedBox(
-                          width: 5,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              '${_exercise.sets}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1
+                                  .copyWith(color: Colors.black),
+                            ),
+                            Text(
+                              'Sets',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline4
+                                  .copyWith(color: Colors.black),
+                            )
+                          ],
                         ),
-                        Text(formatTime(
-                          isPreview: true,
-                          duration: _exercise.exerciseTime,
-                        )),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        FaIcon(
-                          FontAwesomeIcons.coffee,
-                          size: 34,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              offset: const Offset(2.5, 2.5),
+                              blurRadius: 8,
+                              color: Colors.grey.withOpacity(0.1),
+                            ),
+                            BoxShadow(
+                              offset: const Offset(-2.5, -3.5),
+                              blurRadius: 8,
+                              color: Colors.grey.withOpacity(0.1),
+                            ),
+                          ],
                         ),
-                        Text('Rest Time'),
-                        SizedBox(
-                          width: 5,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              '${_exercise.repetitions}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1
+                                  .copyWith(color: Colors.black),
+                            ),
+                            Text(
+                              'Repetitions',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline4
+                                  .copyWith(color: Colors.black),
+                            )
+                          ],
                         ),
-                        Text(formatTime(
-                          isPreview: true,
-                          duration: _exercise.restTime,
-                        )),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        FaIcon(
-                          FontAwesomeIcons.running,
-                          size: 34,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              offset: const Offset(2.5, 2.5),
+                              blurRadius: 8,
+                              color: Colors.grey.withOpacity(0.1),
+                            ),
+                            BoxShadow(
+                              offset: const Offset(-2.5, -3.5),
+                              blurRadius: 8,
+                              color: Colors.grey.withOpacity(0.1),
+                            ),
+                          ],
                         ),
-                        Text('Repetitions'),
-                        SizedBox(
-                          width: 5,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              '${formatTime(
+                                duration: _exercise.exerciseTime,
+                              )}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1
+                                  .copyWith(color: Colors.black),
+                            ),
+                            Text(
+                              'Exercise',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline4
+                                  .copyWith(color: Colors.black),
+                            )
+                          ],
                         ),
-                        Text(_exercise.repetitions.toString()),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        FaIcon(
-                          FontAwesomeIcons.coffee,
-                          size: 34,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              offset: const Offset(2.5, 2.5),
+                              blurRadius: 8,
+                              color: Colors.grey.withOpacity(0.1),
+                            ),
+                            BoxShadow(
+                              offset: const Offset(-2.5, -3.5),
+                              blurRadius: 8,
+                              color: Colors.grey.withOpacity(0.1),
+                            ),
+                          ],
                         ),
-                        Text('Break Time'),
-                        SizedBox(
-                          width: 5,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              '${formatTime(
+                                duration: _exercise.restTime,
+                              )}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1
+                                  .copyWith(color: Colors.black),
+                            ),
+                            Text(
+                              'Rest',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline4
+                                  .copyWith(color: Colors.black),
+                            )
+                          ],
                         ),
-                        Text(formatTime(
-                          isPreview: true,
-                          duration: _exercise.breakTime,
-                        )),
-                      ],
-                    ),
-                  ],
-                ),
-                // childCount: _exercise.sets,
-                childCount: 50,
-              ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              offset: const Offset(2.5, 2.5),
+                              blurRadius: 8,
+                              color: Colors.grey.withOpacity(0.1),
+                            ),
+                            BoxShadow(
+                              offset: const Offset(-2.5, -3.5),
+                              blurRadius: 8,
+                              color: Colors.grey.withOpacity(0.1),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              '${formatTime(
+                                duration: _exercise.breakTime,
+                              )}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1
+                                  .copyWith(color: Colors.black),
+                            ),
+                            Text(
+                              'Break',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline4
+                                  .copyWith(color: Colors.black),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              offset: const Offset(2.5, 2.5),
+                              blurRadius: 8,
+                              color: Colors.grey.withOpacity(0.1),
+                            ),
+                            BoxShadow(
+                              offset: const Offset(-2.5, -3.5),
+                              blurRadius: 8,
+                              color: Colors.grey.withOpacity(0.1),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              '${formatTime(
+                                duration: getTotalTime(_exercise),
+                              )}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1
+                                  .copyWith(color: Colors.black),
+                            ),
+                            Text(
+                              'Total time',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline4
+                                  .copyWith(color: Colors.black),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ]),
             ),
           ],
         ),
