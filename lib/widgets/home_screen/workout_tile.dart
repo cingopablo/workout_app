@@ -28,135 +28,275 @@ class WorkoutTile extends StatelessWidget {
           ),
         ],
       ),
-      margin: const EdgeInsets.fromLTRB(
-        25.0,
-        8.0,
-        25.0,
-        15.0,
+      margin: const EdgeInsets.only(
+        left: 25.0,
+        top: 0.0,
+        right: 25.0,
+        bottom: 15.0,
       ),
       child: GestureDetector(
-        onTap: () => {
-          Navigator.of(context).pushNamed(WorkoutPreviewScreen.routeName),
-        },
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  width: double.infinity,
-                  height: 108.0,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [
-                        const Color(0xffEEEEEE).withOpacity(0.6),
-                        const Color(0xffFAFAFA).withOpacity(0.75),
-                      ],
-                    ),
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 30,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Wrap(
-                              direction: Axis.vertical,
-                              crossAxisAlignment: WrapCrossAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  '2',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline2
-                                      .copyWith(
-                                        color: Colors.black,
-                                        height: 1,
-                                      ),
-                                ),
-                                Text(
-                                  'sets',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline6
-                                      .copyWith(
-                                        height: 0.8,
-                                      ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  'Skipping rope',
-                                  style: Theme.of(context).textTheme.headline6,
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Row(
-                                      children: <Widget>[
-                                        const FaIcon(
-                                          FontAwesomeIcons.running,
-                                          size: 18,
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        const Text('02:00'),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        const FaIcon(
-                                          FontAwesomeIcons.coffee,
-                                          size: 18,
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        const Text('00:30'),
-                                      ],
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                        const Icon(
-                          Icons.chevron_right,
-                          size: 36,
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              ],
+          onTap: () => {
+                Navigator.of(context).pushNamed(WorkoutPreviewScreen.routeName),
+              },
+          child: Container(
+            width: double.infinity,
+            height: 108.0,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              // gradient: LinearGradient(
+              //   begin: Alignment.centerLeft,
+              //   end: Alignment.centerRight,
+              //   colors: [
+              //     const Color(0xffEEEEEE).withOpacity(0.6),
+              //     const Color(0xffFAFAFA).withOpacity(0.75),
+              //   ],
+              // ),
+              borderRadius: BorderRadius.circular(20.0),
             ),
-          ),
-        ),
-      ),
+            child: Container(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 30,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Wrap(
+                        direction: Axis.vertical,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            '2',
+                            style:
+                                Theme.of(context).textTheme.headline2.copyWith(
+                                      color: Colors.black,
+                                      height: 1,
+                                    ),
+                          ),
+                          Text(
+                            'sets',
+                            style:
+                                Theme.of(context).textTheme.headline6.copyWith(
+                                      height: 0.8,
+                                    ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Skipping rope',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  const FaIcon(
+                                    FontAwesomeIcons.running,
+                                    size: 18,
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  const Text('02:00'),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  const FaIcon(
+                                    FontAwesomeIcons.coffee,
+                                    size: 18,
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  const Text('00:30'),
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  const Icon(
+                    Icons.chevron_right,
+                    size: 36,
+                  ),
+                ],
+              ),
+            ),
+          )),
     );
   }
 }
+// class WorkoutTile extends StatelessWidget {
+//   const WorkoutTile({
+//     Key key,
+//   }) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       decoration: BoxDecoration(
+//         borderRadius: BorderRadius.circular(20),
+//         boxShadow: [
+//           BoxShadow(
+//             offset: const Offset(2, 2),
+//             blurRadius: 8,
+//             color: Colors.grey.withOpacity(0.4),
+//           ),
+//           BoxShadow(
+//             offset: const Offset(-2, -2),
+//             blurRadius: 8,
+//             color: Colors.grey[50].withOpacity(0.3),
+//           ),
+//         ],
+//       ),
+//       margin: const EdgeInsets.only(
+//         left: 25.0,
+//         top: 0.0,
+//         right: 25.0,
+//         bottom: 15.0,
+//       ),
+//       child: GestureDetector(
+//         onTap: () => {
+//           Navigator.of(context).pushNamed(WorkoutPreviewScreen.routeName),
+//         },
+//         child: ClipRRect(
+//           borderRadius: BorderRadius.circular(20),
+//           child: BackdropFilter(
+//             filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+//             child: Stack(
+//               children: <Widget>[
+//                 Container(
+//                   width: double.infinity,
+//                   height: 108.0,
+//                   decoration: BoxDecoration(
+//                     gradient: LinearGradient(
+//                       begin: Alignment.centerLeft,
+//                       end: Alignment.centerRight,
+//                       colors: [
+//                         const Color(0xffEEEEEE).withOpacity(0.6),
+//                         const Color(0xffFAFAFA).withOpacity(0.75),
+//                       ],
+//                     ),
+//                     borderRadius: BorderRadius.circular(20.0),
+//                   ),
+//                   child: Container(
+//                     margin: const EdgeInsets.symmetric(
+//                       horizontal: 30,
+//                     ),
+//                     child: Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                       crossAxisAlignment: CrossAxisAlignment.center,
+//                       children: <Widget>[
+//                         Row(
+//                           children: <Widget>[
+//                             Wrap(
+//                               direction: Axis.vertical,
+//                               crossAxisAlignment: WrapCrossAlignment.center,
+//                               children: <Widget>[
+//                                 Text(
+//                                   '2',
+//                                   style: Theme.of(context)
+//                                       .textTheme
+//                                       .headline2
+//                                       .copyWith(
+//                                         color: Colors.black,
+//                                         height: 1,
+//                                       ),
+//                                 ),
+//                                 Text(
+//                                   'sets',
+//                                   style: Theme.of(context)
+//                                       .textTheme
+//                                       .headline6
+//                                       .copyWith(
+//                                         height: 0.8,
+//                                       ),
+//                                 ),
+//                               ],
+//                             ),
+//                             const SizedBox(
+//                               width: 20,
+//                             ),
+//                             Column(
+//                               mainAxisAlignment: MainAxisAlignment.center,
+//                               crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: <Widget>[
+//                                 Text(
+//                                   'Skipping rope',
+//                                   style: Theme.of(context).textTheme.headline6,
+//                                 ),
+//                                 const SizedBox(
+//                                   height: 10,
+//                                 ),
+//                                 Row(
+//                                   mainAxisAlignment:
+//                                       MainAxisAlignment.spaceBetween,
+//                                   children: <Widget>[
+//                                     Row(
+//                                       children: <Widget>[
+//                                         const FaIcon(
+//                                           FontAwesomeIcons.running,
+//                                           size: 18,
+//                                         ),
+//                                         const SizedBox(
+//                                           width: 5,
+//                                         ),
+//                                         const Text('02:00'),
+//                                       ],
+//                                     ),
+//                                     const SizedBox(
+//                                       width: 10,
+//                                     ),
+//                                     Row(
+//                                       children: <Widget>[
+//                                         const FaIcon(
+//                                           FontAwesomeIcons.coffee,
+//                                           size: 18,
+//                                         ),
+//                                         const SizedBox(
+//                                           width: 5,
+//                                         ),
+//                                         const Text('00:30'),
+//                                       ],
+//                                     ),
+//                                   ],
+//                                 )
+//                               ],
+//                             ),
+//                           ],
+//                         ),
+//                         const Icon(
+//                           Icons.chevron_right,
+//                           size: 36,
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 )
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

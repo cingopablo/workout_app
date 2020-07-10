@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../models/exercise.dart';
-import '../utils/format_time.dart';
 import '../widgets/custom_flexible_bar.dart';
 import '../screens/workout_timer_screen.dart';
+import '../widgets/workout_preview_screen/preview_tile.dart';
 
 class WorkoutPreviewScreen extends StatefulWidget {
   static const routeName = '/workout-detail';
@@ -88,253 +88,21 @@ class _WorkoutPreviewScreenState extends State<WorkoutPreviewScreen> {
             SliverList(
               delegate: SliverChildListDelegate.fixed([
                 Container(
-                  //padding: EdgeInsets.all(30),
                   margin: EdgeInsets.symmetric(horizontal: 25),
                   width: double.infinity,
                   height: MediaQuery.of(context).size.width,
-
-                  child: GridView.count(
-                    childAspectRatio: 1.4,
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 5,
-                    children: <Widget>[
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              offset: const Offset(2.5, 2.5),
-                              blurRadius: 8,
-                              color: Colors.grey.withOpacity(0.1),
-                            ),
-                            BoxShadow(
-                              offset: const Offset(-2.5, -3.5),
-                              blurRadius: 8,
-                              color: Colors.grey.withOpacity(0.1),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              '${_exercise.sets}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1
-                                  .copyWith(color: Colors.black),
-                            ),
-                            Text(
-                              'Sets',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4
-                                  .copyWith(color: Colors.black),
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              offset: const Offset(2.5, 2.5),
-                              blurRadius: 8,
-                              color: Colors.grey.withOpacity(0.1),
-                            ),
-                            BoxShadow(
-                              offset: const Offset(-2.5, -3.5),
-                              blurRadius: 8,
-                              color: Colors.grey.withOpacity(0.1),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              '${_exercise.repetitions}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1
-                                  .copyWith(color: Colors.black),
-                            ),
-                            Text(
-                              'Repetitions',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4
-                                  .copyWith(color: Colors.black),
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              offset: const Offset(2.5, 2.5),
-                              blurRadius: 8,
-                              color: Colors.grey.withOpacity(0.1),
-                            ),
-                            BoxShadow(
-                              offset: const Offset(-2.5, -3.5),
-                              blurRadius: 8,
-                              color: Colors.grey.withOpacity(0.1),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              '${formatTime(
-                                duration: _exercise.exerciseTime,
-                              )}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1
-                                  .copyWith(color: Colors.black),
-                            ),
-                            Text(
-                              'Exercise',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4
-                                  .copyWith(color: Colors.black),
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              offset: const Offset(2.5, 2.5),
-                              blurRadius: 8,
-                              color: Colors.grey.withOpacity(0.1),
-                            ),
-                            BoxShadow(
-                              offset: const Offset(-2.5, -3.5),
-                              blurRadius: 8,
-                              color: Colors.grey.withOpacity(0.1),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              '${formatTime(
-                                duration: _exercise.restTime,
-                              )}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1
-                                  .copyWith(color: Colors.black),
-                            ),
-                            Text(
-                              'Rest',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4
-                                  .copyWith(color: Colors.black),
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              offset: const Offset(2.5, 2.5),
-                              blurRadius: 8,
-                              color: Colors.grey.withOpacity(0.1),
-                            ),
-                            BoxShadow(
-                              offset: const Offset(-2.5, -3.5),
-                              blurRadius: 8,
-                              color: Colors.grey.withOpacity(0.1),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              '${formatTime(
-                                duration: _exercise.breakTime,
-                              )}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1
-                                  .copyWith(color: Colors.black),
-                            ),
-                            Text(
-                              'Break',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4
-                                  .copyWith(color: Colors.black),
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              offset: const Offset(2.5, 2.5),
-                              blurRadius: 8,
-                              color: Colors.grey.withOpacity(0.1),
-                            ),
-                            BoxShadow(
-                              offset: const Offset(-2.5, -3.5),
-                              blurRadius: 8,
-                              color: Colors.grey.withOpacity(0.1),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              '${formatTime(
-                                duration: getTotalTime(_exercise),
-                              )}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1
-                                  .copyWith(color: Colors.black),
-                            ),
-                            Text(
-                              'Total time',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4
-                                  .copyWith(color: Colors.black),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
+                  child: GridView.builder(
+                    itemCount: 6,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 1.4,
+                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 15,
+                    ),
+                    itemBuilder: (ctx, index) => PreviewTile(
+                      exercise: _exercise,
+                      index: index,
+                    ),
                   ),
                 )
               ]),

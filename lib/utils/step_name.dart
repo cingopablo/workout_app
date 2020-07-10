@@ -15,6 +15,6 @@ String stepName(WorkoutState step) {
     case WorkoutState.coolDown:
       return 'Cool down!';
     default:
-      return '';
+      return 'Get ready!';
   }
 }

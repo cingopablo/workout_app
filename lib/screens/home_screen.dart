@@ -85,74 +85,33 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
-        child: Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            // Align(
-            //   alignment: Alignment.centerLeft,
-            //   child: Container(
-            //     transform: Matrix4.translationValues(30, -80, 0),
-            //     width: 50,
-            //     height: 50,
-            //     child: Image.asset('assets/images/imagen.png'),
-            //   ),
-            // ),
-            // Align(
-            //   alignment: Alignment.centerRight,
-            //   child: Container(
-            //     transform: Matrix4.translationValues(90, 0, 0),
-            //     width: 200,
-            //     height: 200,
-            //     child: Image.asset('assets/images/imagen.png'),
-            //   ),
-            // ),
-            // Align(
-            //   alignment: Alignment.bottomLeft,
-            //   child: Container(
-            //     transform: Matrix4.translationValues(-90, 0, 0),
-            //     width: 200,
-            //     height: 200,
-            //     child: Image.asset('assets/images/imagen.png'),
-            //   ),
-            // ),
-            // Align(
-            //   alignment: Alignment.bottomRight,
-            //   child: Container(
-            //     transform: Matrix4.translationValues(-80, -45, 0),
-            //     width: 70,
-            //     height: 70,
-            //     child: Image.asset('assets/images/imagen.png'),
-            //   ),
-            // ),
-            CustomScrollView(
-              controller: _scrollController,
-              slivers: <Widget>[
-                SliverAppBar(
-                  elevation: 0,
-                  expandedHeight: 160,
-                  iconTheme: const IconThemeData(color: Colors.black),
-                  backgroundColor: Theme.of(context).backgroundColor,
-                  pinned: true,
-                  floating: true,
-                  primary: true,
-                  centerTitle: true,
-                  title: Text('My workouts',
-                      style: Theme.of(context).textTheme.headline6),
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: CustomFlexibleBar(
-                      now: now,
-                      withDate: true,
-                      title: 'Hello there',
-                    ),
-                  ),
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers: <Widget>[
+            SliverAppBar(
+              elevation: 0,
+              expandedHeight: 160,
+              iconTheme: const IconThemeData(color: Colors.black),
+              backgroundColor: Theme.of(context).backgroundColor,
+              pinned: true,
+              floating: true,
+              primary: true,
+              centerTitle: true,
+              title: Text('My workouts',
+                  style: Theme.of(context).textTheme.headline6),
+              flexibleSpace: FlexibleSpaceBar(
+                background: CustomFlexibleBar(
+                  now: now,
+                  withDate: true,
+                  title: 'Hello there',
                 ),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (ctx, index) => WorkoutTile(),
-                    childCount: 10,
-                  ),
-                ),
-              ],
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (ctx, index) => WorkoutTile(),
+                childCount: 10,
+              ),
             ),
           ],
         ),

@@ -108,86 +108,32 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.black),
-        centerTitle: true,
       ),
       body: SafeArea(
-        child: Stack(
+        child: Container(
           alignment: Alignment.center,
-          children: <Widget>[
-            ListView(
-              padding: EdgeInsets.only(
-                left: 25,
-                right: 25,
-                bottom: 30,
-                top: 15,
+          child: Column(
+            children: <Widget>[
+              Text(
+                stepName(_workout.step),
+                style: Theme.of(context).textTheme.headline1,
               ),
-              children: <Widget>[
-                /* Text(
-                  'Workout time: ${formatTime(_workout.config.getTotalTime())}',
-                  style: Theme.of(context).textTheme.headline4,
+              Text(
+                formatTime(
+                  duration:
+                      _workout.timeLeft ?? _workout.config.getStartDelay(),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            FaIcon(
-                              FontAwesomeIcons.running,
-                              size: 18,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(formatTime(_workout.config.getExerciseTime())),
-                          ],
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Row(
-                          children: <Widget>[
-                            FaIcon(
-                              FontAwesomeIcons.coffee,
-                              size: 18,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(formatTime(_workout.config.getRestTime())),
-                          ],
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ), */
-                Text(
-                  stepName(_workout.step),
-                  style: Theme.of(context).textTheme.headline1,
-                ),
-                Text(
-                  formatTime(
-                    duration:
-                        _workout.timeLeft ?? _workout.config.getStartDelay(),
-                  ),
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3
-                      .copyWith(fontSize: 100),
-                ),
-                Text(
-                    '${formatTime(duration: _workout.totalTime)} / ${formatTime(duration: _workout.config.getTotalTime())}'),
-              ],
-            ),
-          ],
+                style: Theme.of(context)
+                    .textTheme
+                    .headline3
+                    .copyWith(fontSize: 100),
+              ),
+              Text('Set: ${_workout.set} / ${_workout.config.sets}'),
+              Text('Rep: ${_workout.rep} / ${_workout.config.repetitions}'),
+              Text(
+                  'Total time: ${formatTime(duration: _workout.totalTime)} / ${formatTime(duration: _workout.config.getTotalTime())}'),
+            ],
+          ),
         ),
       ),
     );
