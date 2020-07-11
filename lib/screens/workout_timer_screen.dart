@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:screen/screen.dart';
+import 'package:workout_app/utils/get_icon.dart';
 
+import '../models/workout.dart';
 import '../models/settings.dart';
 import '../models/exercise.dart';
-import '../models/workout.dart';
-import '../utils/format_time.dart';
 import '../utils/step_name.dart';
+import '../utils/format_time.dart';
+import '../utils/get_background_color.dart';
 
 class WorkoutTimerScreen extends StatefulWidget {
   static const routeName = '/workout-timer';
@@ -17,8 +20,8 @@ class WorkoutTimerScreen extends StatefulWidget {
 class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
   Workout _workout;
   Exercise _exercise = Exercise(
-    sets: 1,
-    repetitions: 1,
+    sets: 2,
+    repetitions: 2,
     exerciseTime: const Duration(seconds: 10),
     restTime: const Duration(seconds: 5),
     breakTime: const Duration(seconds: 60),
@@ -47,20 +50,6 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
       Screen.keepOn(false);
     }
     this.setState(() {});
-  }
-
-  _getBackgroundColor() {
-    switch (_workout.step) {
-      case WorkoutState.exercising:
-        return Colors.green;
-      case WorkoutState.starting:
-      case WorkoutState.resting:
-        return Colors.blue;
-      case WorkoutState.breaking:
-        return Colors.red;
-      default:
-        return Colors.white;
-    }
   }
 
   _pause() {
@@ -108,11 +97,20 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.black),
+        leading: IconButton(
+          icon: Icon(Icons.close),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: SafeArea(
         child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 25),
+          padding: EdgeInsets.only(bottom: AppBar().preferredSize.height),
+          // color: Colors.red,
+          // height: MediaQuery.of(context).size.height,
           alignment: Alignment.center,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
                 stepName(_workout.step),
@@ -126,12 +124,58 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
                 style: Theme.of(context)
                     .textTheme
                     .headline3
-                    .copyWith(fontSize: 100),
+                    .copyWith(fontSize: 120, height: 1.2),
+              ),
+              Text(
+                '${formatTime(duration: formatTime(duration: _workout.totalTime) == '00:00' ? _workout.config.getTotalTime() : _workout.totalTime)}',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline3
+                    .copyWith(height: 0.75),
               ),
               Text('Set: ${_workout.set} / ${_workout.config.sets}'),
               Text('Rep: ${_workout.rep} / ${_workout.config.repetitions}'),
-              Text(
-                  'Total time: ${formatTime(duration: _workout.totalTime)} / ${formatTime(duration: _workout.config.getTotalTime())}'),
+              const SizedBox(
+                height: 60,
+              ),
+              if (_workout.getNextStep() != null)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Coming next',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ),
+              const SizedBox(
+                height: 10,
+              ),
+              if (_workout.getNextStep() != null)
+                Container(
+                  alignment: Alignment.center,
+                  height: 80,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: getBackgroundColor(
+                      workout: _workout,
+                      context: context,
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      FaIcon(getIcon(workout: _workout)),
+                      const SizedBox(width: 10),
+                      Text(_workout.getNextStep().toString()),
+                    ],
+                  ),
+                ),
+              if (_workout.getNextStep() == null)
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 25),
+                  height: 30,
+                  color: Colors.red,
+                )
             ],
           ),
         ),

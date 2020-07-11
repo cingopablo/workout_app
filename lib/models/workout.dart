@@ -29,10 +29,10 @@ class Workout {
   Timer _timer;
 
   /// Time left in the current step
-  Duration _timeLeft = Duration(seconds: 0);
+  Duration _timeLeft; // = Duration(seconds: 0);
   // Duration _timeLeft;
 
-  Duration _totalTime = Duration(seconds: 0);
+  var _totalTime = Duration(seconds: 0);
 
   /// Current set
   int _set = 0;
@@ -51,6 +51,7 @@ class Workout {
   /// Starts or resumes the workout
   start() {
     if (_step == WorkoutState.initial) {
+      _totalTime = _config.getTotalTime();
       _step = WorkoutState.starting;
       if (_config.startDelay.inSeconds == 0) {
         _nextStep();
@@ -68,6 +69,27 @@ class Workout {
     _onStateChange();
   }
 
+  getNextStep() {
+    if (_step == WorkoutState.initial) return 'Exercise';
+    if (_step == WorkoutState.exercising) {
+      if (rep == _config.repetitions) {
+        if (set == _config.sets) {
+          return 'Cool down';
+        } else {
+          return 'Break';
+        }
+      } else {
+        return 'Rest';
+      }
+    } else if (_step == WorkoutState.starting ||
+        _step == WorkoutState.breaking ||
+        _step == WorkoutState.resting) {
+      return 'Exercise';
+    } else if (_step == WorkoutState.coolDown) {
+      return 'Finish';
+    }
+  }
+
   /// Stops the timer without triggering the state change callback.
   dispose() {
     _timer.cancel();
@@ -75,7 +97,7 @@ class Workout {
 
   _tick(Timer timer) {
     if (_step != WorkoutState.starting) {
-      _totalTime += Duration(seconds: 1);
+      _totalTime -= Duration(seconds: 1);
     }
 
     if (_timeLeft.inSeconds == 1) {

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Exercise {
+  String id;
+  String title;
+  String createdAt;
+
   /// Sets in a workout
   int sets;
 
@@ -23,6 +27,9 @@ class Exercise {
   Duration coolDownTime = Duration(seconds: 20);
 
   Exercise({
+    this.id,
+    this.title,
+    this.createdAt,
     @required this.sets,
     @required this.repetitions,
     this.startDelay = const Duration(seconds: 5),
