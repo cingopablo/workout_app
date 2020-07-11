@@ -69,7 +69,11 @@ class WorkoutPreviewScreen extends StatelessWidget {
                     Icons.delete,
                     color: Theme.of(context).errorColor,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Provider.of<ExerciseProvider>(context, listen: false)
+                        .deleteExercise(exerciseId);
+                    Navigator.of(context).pop();
+                  },
                 ),
               ],
               title:

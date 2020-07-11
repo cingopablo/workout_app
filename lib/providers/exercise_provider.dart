@@ -69,6 +69,7 @@ class ExerciseProvider with ChangeNotifier {
   Future<void> deleteExercise(String exerciseId) async {
     _items.removeWhere((exercise) => exercise.id == exerciseId);
     DBHelper.remove('user_exercises', exerciseId);
+    notifyListeners();
   }
 
   Future<void> fetchAndSetExercises() async {
