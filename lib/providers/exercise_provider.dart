@@ -42,7 +42,7 @@ class ExerciseProvider with ChangeNotifier {
     Duration breakTime,
   }) async {
     final newExercise = Exercise(
-      id: uuid.v4(),
+      id: id,
       title: title,
       createdAt: DateTime.now().toIso8601String(),
       sets: sets,

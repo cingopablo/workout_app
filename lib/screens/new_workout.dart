@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
+import 'package:workout_app/providers/exercise_provider.dart';
+import 'package:workout_app/screens/workout_preview_screen.dart';
 
 import '../widgets/custom_flexible_bar.dart';
 import '../widgets/new_workout/input_text.dart';
@@ -37,15 +41,12 @@ class _NewWorkoutState extends State<NewWorkout> {
 
     _scrollController.addListener(() {
       switch (_scrollController.position.userScrollDirection) {
-        // Scrolling up - forward the animation (value goes to 1)
         case ScrollDirection.forward:
           _switchActionBar(true);
           break;
-        // Scrolling down - reverse the animation (value goes to 0)
         case ScrollDirection.reverse:
           _switchActionBar(false);
           break;
-        // Idle - keep FAB visibility unchanged
         case ScrollDirection.idle:
           break;
       }
@@ -54,6 +55,8 @@ class _NewWorkoutState extends State<NewWorkout> {
 
   @override
   Widget build(BuildContext context) {
+    final uuid = Uuid();
+    final id = uuid.v4();
     return Scaffold(
       extendBodyBehindAppBar: true,
       floatingActionButton: AnimatedSwitcher(
@@ -69,7 +72,24 @@ class _NewWorkoutState extends State<NewWorkout> {
         child: FloatingActionButton.extended(
           isExtended: _isExtended,
           onPressed: () {
-            Navigator.of(context).pushNamed(NewWorkout.routeName);
+            //Navigator.of(context).pushNamed(NewWorkout.routeName);
+            Navigator.of(context).pop();
+            Provider.of<ExerciseProvider>(
+              context,
+              listen: false,
+            ).addExercise(
+              title: 'New timer',
+              id: id,
+              sets: 1,
+              repetitions: 1,
+              exerciseTime: const Duration(seconds: 10),
+              restTime: const Duration(seconds: 5),
+              breakTime: const Duration(seconds: 60),
+            );
+            Navigator.of(context).pushNamed(
+              WorkoutPreviewScreen.routeName,
+              arguments: id,
+            );
           },
           elevation: 2,
           backgroundColor: Theme.of(context).primaryColor,

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:workout_app/providers/exercise_provider.dart';
-import 'package:workout_app/screens/workout_timer_screen.dart';
 
-import './screens/home_screen.dart';
+import './models/exercise.dart';
 import './screens/new_workout.dart';
+import './screens/home_screen.dart';
+import './providers/exercise_provider.dart';
+import './screens/workout_timer_screen.dart';
 import './screens/workout_preview_screen.dart';
 
 void main() => runApp(MyApp());
@@ -64,7 +65,9 @@ class MyApp extends StatelessWidget {
         home: HomeScreen(),
         routes: {
           WorkoutPreviewScreen.routeName: (ctx) => WorkoutPreviewScreen(),
-          WorkoutTimerScreen.routeName: (ctx) => WorkoutTimerScreen(),
+          WorkoutTimerScreen.routeName: (ctx) => WorkoutTimerScreen(
+              selectedExercise:
+                  ModalRoute.of(ctx).settings.arguments as Exercise),
           NewWorkout.routeName: (ctx) => NewWorkout(),
         },
       ),

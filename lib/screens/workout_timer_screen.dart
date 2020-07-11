@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:screen/screen.dart';
-import 'package:workout_app/utils/get_icon.dart';
 
+import '../utils/get_icon.dart';
 import '../models/workout.dart';
 import '../models/settings.dart';
 import '../models/exercise.dart';
@@ -12,6 +12,9 @@ import '../utils/get_background_color.dart';
 
 class WorkoutTimerScreen extends StatefulWidget {
   static const routeName = '/workout-timer';
+  final Exercise selectedExercise;
+
+  WorkoutTimerScreen({this.selectedExercise});
 
   @override
   _WorkoutTimerScreenState createState() => _WorkoutTimerScreenState();
@@ -19,13 +22,6 @@ class WorkoutTimerScreen extends StatefulWidget {
 
 class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
   Workout _workout;
-  Exercise _exercise = Exercise(
-    sets: 2,
-    repetitions: 2,
-    exerciseTime: const Duration(seconds: 10),
-    restTime: const Duration(seconds: 5),
-    breakTime: const Duration(seconds: 60),
-  );
   Settings _settings = Settings();
 
   @override
@@ -33,7 +29,8 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
     super.initState();
     _workout = Workout(
       _settings,
-      _exercise,
+      // _exercise,
+      widget.selectedExercise,
       _onWorkoutChanged,
     );
   }
@@ -64,6 +61,7 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.selectedExercise);
     return Scaffold(
       floatingActionButton: AnimatedSwitcher(
         duration: Duration(

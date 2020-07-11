@@ -1,26 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../models/exercise.dart';
+import '../providers/exercise_provider.dart';
 import '../widgets/custom_flexible_bar.dart';
 import '../screens/workout_timer_screen.dart';
 import '../widgets/workout_preview_screen/preview_tile.dart';
 
-class WorkoutPreviewScreen extends StatefulWidget {
+class WorkoutPreviewScreen extends StatelessWidget {
   static const routeName = '/workout-detail';
-
-  @override
-  _WorkoutPreviewScreenState createState() => _WorkoutPreviewScreenState();
-}
-
-class _WorkoutPreviewScreenState extends State<WorkoutPreviewScreen> {
-  var now = DateTime.now();
-  Exercise _exercise = Exercise(
-    sets: 1,
-    repetitions: 1,
-    exerciseTime: const Duration(seconds: 10),
-    restTime: const Duration(seconds: 5),
-    breakTime: const Duration(seconds: 60),
-  );
 
   Duration getTotalTime(exercise) {
     return (exercise.exerciseTime * exercise.sets * exercise.repetitions) +
@@ -31,6 +18,13 @@ class _WorkoutPreviewScreenState extends State<WorkoutPreviewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final exerciseId = ModalRoute.of(context).settings.arguments as String;
+
+    final loadedExercise = Provider.of<ExerciseProvider>(
+      context,
+      listen: false,
+    ).findById(exerciseId);
+
     return Scaffold(
       floatingActionButton: AnimatedSwitcher(
         duration: Duration(
@@ -45,7 +39,10 @@ class _WorkoutPreviewScreenState extends State<WorkoutPreviewScreen> {
         child: FloatingActionButton.extended(
           isExtended: true,
           onPressed: () {
-            Navigator.of(context).pushNamed(WorkoutTimerScreen.routeName);
+            Navigator.of(context).pushNamed(
+              WorkoutTimerScreen.routeName,
+              arguments: loadedExercise,
+            );
           },
           elevation: 2,
           backgroundColor: Theme.of(context).primaryColor,
@@ -79,10 +76,9 @@ class _WorkoutPreviewScreenState extends State<WorkoutPreviewScreen> {
                   Text('Preview', style: Theme.of(context).textTheme.headline6),
               flexibleSpace: FlexibleSpaceBar(
                 background: CustomFlexibleBar(
-                  now: now,
-                  withDate: true,
-                  title: 'Skipping rope',
-                ),
+                    now: DateTime.parse(loadedExercise.createdAt),
+                    withDate: true,
+                    title: loadedExercise.title),
               ),
             ),
             SliverList(
@@ -100,7 +96,7 @@ class _WorkoutPreviewScreenState extends State<WorkoutPreviewScreen> {
                       mainAxisSpacing: 15,
                     ),
                     itemBuilder: (ctx, index) => PreviewTile(
-                      exercise: _exercise,
+                      exercise: loadedExercise,
                       index: index,
                     ),
                   ),
