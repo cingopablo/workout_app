@@ -51,29 +51,18 @@ class WorkoutPreviewScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      floatingActionButton: AnimatedSwitcher(
-        duration: Duration(
-          milliseconds: 100,
-        ),
-        transitionBuilder: (Widget child, Animation<double> animation) {
-          return ScaleTransition(
-            child: child,
-            scale: animation.drive(CurveTween(curve: Curves.easeOutQuint)),
+      floatingActionButton: FloatingActionButton.extended(
+        isExtended: true,
+        onPressed: () {
+          Navigator.of(context).pushNamed(
+            WorkoutTimerScreen.routeName,
+            arguments: loadedExercise,
           );
         },
-        child: FloatingActionButton.extended(
-          isExtended: true,
-          onPressed: () {
-            Navigator.of(context).pushNamed(
-              WorkoutTimerScreen.routeName,
-              arguments: loadedExercise,
-            );
-          },
-          elevation: 2,
-          backgroundColor: Theme.of(context).primaryColor,
-          foregroundColor: Colors.white,
-          label: Text('Continue'),
-        ),
+        elevation: 2,
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Colors.white,
+        label: const Text('Continue'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(

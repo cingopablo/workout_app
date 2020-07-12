@@ -8,6 +8,7 @@ class TimerSelector extends StatelessWidget {
   final String key1;
   final String key2;
   final bool isTime;
+  final double height;
 
   TimerSelector({
     this.isTime = true,
@@ -16,12 +17,13 @@ class TimerSelector extends StatelessWidget {
     this.key2 = '',
     @required this.initialValue,
     this.initialValue2,
+    this.height = 120.0,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 120,
+      height: height,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -29,16 +31,13 @@ class TimerSelector extends StatelessWidget {
           if (isTime)
             Text(
               'min',
-              style: Theme.of(context).textTheme.headline4.copyWith(
-                    height: 1.10,
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: Theme.of(context).textTheme.headline6,
             ),
           if (isTime)
             TimerSelectorTheme(
               picker: NumberPicker.integer(
                 listViewWidth: 55.0,
-                itemExtent: 40.0,
+                itemExtent: 35.0,
                 infiniteLoop: true,
                 zeroPad: true,
                 highlightSelectedValue: true,
@@ -52,14 +51,14 @@ class TimerSelector extends StatelessWidget {
             Text(
               ':',
               style: Theme.of(context).textTheme.headline3.copyWith(
-                    height: 1.10,
+                    height: 1.15,
                   ),
             ),
           if (isTime)
             TimerSelectorTheme(
               picker: NumberPicker.integer(
                 listViewWidth: 55.0,
-                itemExtent: 40.0,
+                itemExtent: 35.0,
                 infiniteLoop: true,
                 zeroPad: true,
                 highlightSelectedValue: true,
@@ -72,11 +71,9 @@ class TimerSelector extends StatelessWidget {
           if (isTime)
             Text(
               'sec',
-              style: Theme.of(context).textTheme.headline4.copyWith(
-                    height: 1.10,
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: Theme.of(context).textTheme.headline6,
             ),
+          if (!isTime) Icon(Icons.keyboard_arrow_left),
           if (!isTime)
             TimerSelectorTheme(
               picker: NumberPicker.horizontal(
@@ -92,6 +89,7 @@ class TimerSelector extends StatelessWidget {
                 onChanged: (value) => {setValues(key: key1, value: value)},
               ),
             ),
+          if (!isTime) Icon(Icons.keyboard_arrow_right),
         ],
       ),
     );
@@ -115,7 +113,7 @@ class TimerSelectorTheme extends StatelessWidget {
                     color: Theme.of(context).primaryColor,
                     //height: 0.01,
                   ), //other highlighted style
-              body1: Theme.of(context).textTheme.headline2.copyWith(
+              body1: Theme.of(context).textTheme.headline6.copyWith(
                     color: Colors.grey,
                     //height: 0.01,
                   ), //not highlighted styles

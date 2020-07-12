@@ -60,34 +60,15 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.selectedExercise);
     return Scaffold(
-      floatingActionButton: AnimatedSwitcher(
-        duration: Duration(
-          milliseconds: 100,
-        ),
-        transitionBuilder: (Widget child, Animation<double> animation) {
-          return ScaleTransition(
-            child: child,
-            scale: animation.drive(CurveTween(curve: Curves.easeOutQuint)),
-          );
-        },
-        child: FloatingActionButton.extended(
-          isExtended: true,
-          onPressed: _workout.isActive ? _pause : _start,
-          elevation: 2,
-          backgroundColor: Theme.of(context).primaryColor,
-          foregroundColor: Colors.white,
-          label: Row(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Icon(_workout.isActive ? Icons.pause : Icons.play_arrow),
-              ),
-              _workout.isActive ? Text('Pause') : Text('Start workout'),
-            ],
-          ),
-        ),
+      floatingActionButton: FloatingActionButton.extended(
+        isExtended: true,
+        onPressed: _workout.isActive ? _pause : _start,
+        elevation: 2,
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Colors.white,
+        icon: Icon(_workout.isActive ? Icons.pause : Icons.play_arrow),
+        label: _workout.isActive ? Text('Pause') : Text('Start workout'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(

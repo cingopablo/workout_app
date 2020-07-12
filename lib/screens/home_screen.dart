@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/new_workout.dart';
@@ -13,34 +14,16 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: AnimatedSwitcher(
-        duration: Duration(
-          milliseconds: 100,
-        ),
-        transitionBuilder: (Widget child, Animation<double> animation) {
-          return ScaleTransition(
-            child: child,
-            scale: animation.drive(CurveTween(curve: Curves.easeOutQuint)),
-          );
+      floatingActionButton: FloatingActionButton.extended(
+        isExtended: true,
+        onPressed: () {
+          Navigator.of(context).pushNamed(NewWorkout.routeName);
         },
-        child: FloatingActionButton.extended(
-          isExtended: true,
-          onPressed: () {
-            Navigator.of(context).pushNamed(NewWorkout.routeName);
-          },
-          elevation: 2,
-          backgroundColor: Theme.of(context).primaryColor,
-          foregroundColor: Colors.white,
-          label: Row(
-            children: <Widget>[
-              const Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: const Icon(Icons.add),
-              ),
-              const Text("Add training"),
-            ],
-          ),
-        ),
+        elevation: 2,
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.add),
+        label: const Text("Add training"),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
@@ -57,7 +40,8 @@ class HomeScreen extends StatelessWidget {
                 builder: (ctx, exercises, ch) => exercises.items.length <= 0
                     ? SliverList(
                         delegate: SliverChildBuilderDelegate(
-                          (ctx, index) => Text('No items'),
+                          (ctx, index) =>
+                              Lottie.asset('assets/images/warmup.json'),
                           childCount: 1,
                         ),
                       )
