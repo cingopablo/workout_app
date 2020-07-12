@@ -29,7 +29,6 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
     super.initState();
     _workout = Workout(
       _settings,
-      // _exercise,
       widget.selectedExercise,
       _onWorkoutChanged,
     );
@@ -104,8 +103,6 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 25),
           padding: EdgeInsets.only(bottom: AppBar().preferredSize.height),
-          // color: Colors.red,
-          // height: MediaQuery.of(context).size.height,
           alignment: Alignment.center,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -122,7 +119,7 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
                 style: Theme.of(context)
                     .textTheme
                     .headline3
-                    .copyWith(fontSize: 120, height: 1.2),
+                    .copyWith(fontSize: 100, height: 1.2),
               ),
               Text(
                 '${formatTime(duration: formatTime(duration: _workout.totalTime) == '00:00' ? _workout.config.getTotalTime() : _workout.totalTime)}',

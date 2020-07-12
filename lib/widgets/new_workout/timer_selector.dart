@@ -2,10 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 class TimerSelector extends StatelessWidget {
+  final dynamic initialValue;
+  final dynamic initialValue2;
+  final Function setValues;
+  final String key1;
+  final String key2;
   final bool isTime;
 
   TimerSelector({
     this.isTime = true,
+    @required this.setValues,
+    @required this.key1,
+    this.key2 = '',
+    @required this.initialValue,
+    this.initialValue2,
   });
 
   @override
@@ -32,10 +42,10 @@ class TimerSelector extends StatelessWidget {
                 infiniteLoop: true,
                 zeroPad: true,
                 highlightSelectedValue: true,
-                initialValue: 0,
+                initialValue: initialValue,
                 minValue: 0,
                 maxValue: 60,
-                onChanged: (value) => {},
+                onChanged: (value) => {setValues(key: key1, value: value)},
               ),
             ),
           if (isTime)
@@ -53,10 +63,10 @@ class TimerSelector extends StatelessWidget {
                 infiniteLoop: true,
                 zeroPad: true,
                 highlightSelectedValue: true,
-                initialValue: 0,
+                initialValue: initialValue2,
                 minValue: 0,
                 maxValue: 59,
-                onChanged: (value) => {},
+                onChanged: (value) => {setValues(key: key2, value: value)},
               ),
             ),
           if (isTime)
@@ -76,12 +86,10 @@ class TimerSelector extends StatelessWidget {
                 itemExtent: 40.0,
                 zeroPad: true,
                 highlightSelectedValue: true,
-                initialValue: 1,
+                initialValue: initialValue,
                 minValue: 1,
                 maxValue: 20,
-                onChanged: (value) => {
-                  print('hola'),
-                },
+                onChanged: (value) => {setValues(key: key1, value: value)},
               ),
             ),
         ],

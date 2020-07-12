@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/exercise.dart';
 import '../providers/exercise_provider.dart';
 import '../widgets/custom_flexible_bar.dart';
 import '../screens/workout_timer_screen.dart';
@@ -18,12 +19,36 @@ class WorkoutPreviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final exerciseId = ModalRoute.of(context).settings.arguments as String;
+    final loadedExercise =
+        ModalRoute.of(context).settings.arguments as Exercise;
 
-    final loadedExercise = Provider.of<ExerciseProvider>(
-      context,
-      listen: false,
-    ).findById(exerciseId);
+    Widget alertDialog() {
+      return AlertDialog(
+        title: Text('Delete'),
+        content: Text('Do you want to delete this workout?'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text(
+              'No',
+              style: Theme.of(context).textTheme.headline5,
+            ),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          FlatButton(
+            child: Text(
+              'Yes',
+              style: TextStyle(color: Theme.of(context).errorColor),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).popUntil(ModalRoute.withName('/'));
+              Provider.of<ExerciseProvider>(context, listen: false)
+                  .deleteExercise(loadedExercise.id);
+            },
+          ),
+        ],
+      );
+    }
 
     return Scaffold(
       floatingActionButton: AnimatedSwitcher(
@@ -70,9 +95,10 @@ class WorkoutPreviewScreen extends StatelessWidget {
                     color: Theme.of(context).errorColor,
                   ),
                   onPressed: () {
-                    Provider.of<ExerciseProvider>(context, listen: false)
-                        .deleteExercise(exerciseId);
-                    Navigator.of(context).pop();
+                    showDialog(
+                      context: context,
+                      builder: (_) => alertDialog(),
+                    );
                   },
                 ),
               ],

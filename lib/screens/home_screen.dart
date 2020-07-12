@@ -7,46 +7,8 @@ import '../providers/exercise_provider.dart';
 import '../widgets/custom_flexible_bar.dart';
 import '../widgets/home_screen/workout_tile.dart';
 
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  ScrollController _scrollController;
-  bool _isExtended = true;
-  var now = DateTime.now();
-
-  void _switchActionBar(value) {
-    setState(() {
-      _isExtended = value;
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _scrollController.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-
-    _scrollController.addListener(() {
-      switch (_scrollController.position.userScrollDirection) {
-        case ScrollDirection.forward:
-          _switchActionBar(true);
-          break;
-        case ScrollDirection.reverse:
-          _switchActionBar(false);
-          break;
-        case ScrollDirection.idle:
-          break;
-      }
-    });
-  }
+class HomeScreen extends StatelessWidget {
+  final now = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -62,35 +24,22 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
         child: FloatingActionButton.extended(
-          isExtended: _isExtended,
+          isExtended: true,
           onPressed: () {
             Navigator.of(context).pushNamed(NewWorkout.routeName);
           },
-          // onPressed: () => Provider.of<ExerciseProvider>(
-          //   context,
-          //   listen: false,
-          // ).addExercise(
-          //   title: 'New timer',
-          //   sets: 1,
-          //   repetitions: 1,
-          //   exerciseTime: const Duration(seconds: 10),
-          //   restTime: const Duration(seconds: 5),
-          //   breakTime: const Duration(seconds: 60),
-          // ),
           elevation: 2,
           backgroundColor: Theme.of(context).primaryColor,
           foregroundColor: Colors.white,
-          label: _isExtended
-              ? Row(
-                  children: <Widget>[
-                    const Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: const Icon(Icons.add),
-                    ),
-                    const Text("Add training"),
-                  ],
-                )
-              : const Icon(Icons.add),
+          label: Row(
+            children: <Widget>[
+              const Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: const Icon(Icons.add),
+              ),
+              const Text("Add training"),
+            ],
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -121,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
               );
             } else {
-              newsListSliver = SliverToBoxAdapter(
+              newsListSliver = SliverFillRemaining(
                 child: CircularProgressIndicator(),
               );
             }

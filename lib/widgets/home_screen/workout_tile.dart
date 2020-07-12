@@ -43,7 +43,7 @@ class WorkoutTile extends StatelessWidget {
           onTap: () => {
                 Navigator.of(context).pushNamed(
                   WorkoutPreviewScreen.routeName,
-                  arguments: exercise.id,
+                  arguments: exercise,
                 ),
               },
           child: Container(

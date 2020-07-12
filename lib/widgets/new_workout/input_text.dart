@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class InputText extends StatelessWidget {
+  final Function setValues;
+
+  InputText({this.setValues});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,6 +21,7 @@ class InputText extends StatelessWidget {
             style: Theme.of(context).textTheme.headline6,
           ),
           Container(
+            padding: const EdgeInsets.symmetric(vertical: 15),
             margin: const EdgeInsets.only(top: 15),
             width: double.infinity,
             decoration: BoxDecoration(
@@ -36,6 +41,10 @@ class InputText extends StatelessWidget {
               ],
             ),
             child: TextField(
+              autocorrect: false,
+              enableSuggestions: false,
+              maxLength: 15,
+              onChanged: (value) => setValues(key: 'title', value: value),
               decoration: InputDecoration(
                 border: InputBorder.none,
                 fillColor: Colors.white,

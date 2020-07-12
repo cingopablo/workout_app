@@ -62,8 +62,9 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: HomeScreen(),
+        //home: HomeScreen(),
         routes: {
+          '/': (ctx) => HomeScreen(),
           WorkoutPreviewScreen.routeName: (ctx) => WorkoutPreviewScreen(),
           WorkoutTimerScreen.routeName: (ctx) => WorkoutTimerScreen(
               selectedExercise:
