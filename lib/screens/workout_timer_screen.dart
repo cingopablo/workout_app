@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:screen/screen.dart';
 
-import '../utils/get_icon.dart';
 import '../models/workout.dart';
 import '../models/settings.dart';
 import '../models/exercise.dart';
-import '../utils/step_name.dart';
-import '../utils/format_time.dart';
 import '../utils/get_background_color.dart';
+import '../widgets/workout_timer_screen/timer_body.dart';
+import '../widgets/workout_timer_screen/timer_head.dart';
 
 class WorkoutTimerScreen extends StatefulWidget {
   static const routeName = '/workout-timer';
@@ -60,6 +58,7 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(_workout.current);
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         isExtended: true,
@@ -73,7 +72,7 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: getBackgroundColor(workout: _workout.step),
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.black),
         leading: IconButton(
@@ -82,98 +81,12 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
         ),
       ),
       body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.only(left: 25, right: 25, top: 25),
-          padding: const EdgeInsets.only(bottom: 24),
-          alignment: Alignment.center,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                stepName(_workout.step),
-                style: Theme.of(context).textTheme.headline1,
-              ),
-              Text(
-                formatTime(
-                  duration:
-                      _workout.timeLeft ?? _workout.config.getStartDelay(),
-                ),
-                style: Theme.of(context)
-                    .textTheme
-                    .headline3
-                    .copyWith(fontSize: 100, height: 1.2),
-              ),
-              Text(
-                '${formatTime(duration: formatTime(duration: _workout.totalTime) == '00:00' ? _workout.config.getTotalTime() : _workout.totalTime)}',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline3
-                    .copyWith(height: 0.75),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'SET ${_workout.set} / ${_workout.config.sets}',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  Text(
-                    'REP ${_workout.rep} / ${_workout.config.repetitions}',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-
-              Divider(
-                color: Colors.black,
-                thickness: 2,
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: 20,
-                  itemBuilder: (ctx, index) => Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    alignment: Alignment.center,
-                    // height: 80,
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: getBackgroundColor(
-                        workout: _workout,
-                        context: context,
-                      ),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        FaIcon(
-                          getIcon(workout: _workout),
-                          size: 30,
-                        ),
-                        const SizedBox(width: 10),
-                        Text(_workout.getNextStep().toString()),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              // if (_workout.getNextStep() != null)
-
-              // if (_workout.getNextStep() == null)
-              //   Container(
-              //     margin: EdgeInsets.symmetric(horizontal: 25),
-              //     height: 30,
-              //     color: Colors.red,
-              //   )
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            TimerHead(workout: _workout),
+            TimerBody(workout: _workout),
+          ],
         ),
       ),
     );

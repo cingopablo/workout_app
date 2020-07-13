@@ -3,18 +3,18 @@ import '../models/workout.dart';
 String stepName(WorkoutState step) {
   switch (step) {
     case WorkoutState.exercising:
-      return 'EXERCISE';
+      return 'Exercise';
     case WorkoutState.resting:
-      return 'REST';
+      return 'Rest';
     case WorkoutState.breaking:
-      return 'BREAK';
+      return 'Break';
     case WorkoutState.finished:
-      return 'FINISHED';
+      return 'Finished';
     case WorkoutState.starting:
-      return 'GET READY!';
+      return 'Get ready!';
     case WorkoutState.coolDown:
-      return 'COOL DOWN';
+      return 'Cool down!';
     default:
-      return 'GET READY!';
+      return 'Get ready!';
   }
 }

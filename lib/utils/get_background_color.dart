@@ -2,21 +2,20 @@ import 'package:flutter/material.dart';
 
 import '../models/workout.dart';
 
-getBackgroundColor({
-  Workout workout,
-  BuildContext context,
-}) {
-  switch (workout.step) {
+getBackgroundColor({WorkoutState workout}) {
+  switch (workout) {
     case WorkoutState.initial:
     case WorkoutState.starting:
-
-    case WorkoutState.exercising:
+      return Colors.grey[100];
     case WorkoutState.resting:
-    case WorkoutState.coolDown:
       return Colors.blue[100];
+    case WorkoutState.exercising:
+      // return Colors.green[300];
+      return Color(0XFFB9FE5E);
     case WorkoutState.breaking:
-      return Colors.red[100];
+    case WorkoutState.coolDown:
+      return Colors.yellow[400];
     default:
-      return Theme.of(context).backgroundColor;
+      return Colors.white;
   }
 }

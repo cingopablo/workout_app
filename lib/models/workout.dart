@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:audioplayers/audio_cache.dart';
+import 'package:flutter/material.dart';
 
 import './exercise.dart';
 import './settings.dart';
@@ -40,7 +41,7 @@ class Workout {
   /// Current rep
   int _rep = 0;
 
-  // Music player
+  int _current = 0;
 
   Workout(
     this._settings,
@@ -90,6 +91,44 @@ class Workout {
     }
   }
 
+  getAllSteps() {
+    List<Map<String, dynamic>> steps = [
+      {
+        'title': 'Get ready',
+        'value': _config.startDelay,
+        'step': WorkoutState.initial
+      }
+    ];
+
+    for (var i = 0; i < _config.sets; i++) {
+      for (var j = 0; j < _config.repetitions; j++) {
+        steps.add({
+          'title': 'Exercise',
+          'value': _config.exerciseTime,
+          'step': WorkoutState.exercising
+        });
+        if (_config.repetitions > 1)
+          steps.add({
+            'title': 'Rest',
+            'value': _config.restTime,
+            'step': WorkoutState.resting
+          });
+      }
+      if (_config.sets > 1)
+        steps.add({
+          'title': 'Break',
+          'value': _config.breakTime,
+          'step': WorkoutState.breaking
+        });
+    }
+    steps.add({
+      'title': 'Cool down',
+      'value': _config.coolDownTime,
+      'step': WorkoutState.coolDown
+    });
+    return steps;
+  }
+
   /// Stops the timer without triggering the state change callback.
   dispose() {
     _timer.cancel();
@@ -114,6 +153,7 @@ class Workout {
 
   /// Moves the workout to the next step and sets up state for it.
   _nextStep() {
+    _current++;
     if (_step == WorkoutState.exercising) {
       if (rep == _config.repetitions) {
         if (set == _config.sets) {
@@ -205,6 +245,8 @@ class Workout {
   get step => _step;
 
   get timeLeft => _timeLeft;
+
+  get current => _current;
 
   get totalTime => _totalTime;
 
