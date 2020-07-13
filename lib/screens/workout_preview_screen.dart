@@ -24,8 +24,8 @@ class WorkoutPreviewScreen extends StatelessWidget {
 
     Widget alertDialog() {
       return AlertDialog(
-        title: Text('Delete'),
-        content: Text('Do you want to delete this workout?'),
+        title: const Text('Delete'),
+        content: const Text('Do you want to delete this workout?'),
         actions: <Widget>[
           FlatButton(
             child: Text(
@@ -61,7 +61,6 @@ class WorkoutPreviewScreen extends StatelessWidget {
         },
         elevation: 2,
         backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Colors.white,
         label: const Text('Continue'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -95,15 +94,16 @@ class WorkoutPreviewScreen extends StatelessWidget {
                   Text('Preview', style: Theme.of(context).textTheme.headline6),
               flexibleSpace: FlexibleSpaceBar(
                 background: CustomFlexibleBar(
-                    now: DateTime.parse(loadedExercise.createdAt),
-                    withDate: true,
-                    title: loadedExercise.title),
+                  now: DateTime.parse(loadedExercise.createdAt),
+                  withDate: true,
+                  title: loadedExercise.title,
+                ),
               ),
             ),
             SliverList(
               delegate: SliverChildListDelegate.fixed([
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 25),
+                  margin: const EdgeInsets.symmetric(horizontal: 25),
                   width: double.infinity,
                   height: MediaQuery.of(context).size.width,
                   child: GridView.builder(

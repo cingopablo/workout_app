@@ -66,9 +66,10 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
         onPressed: _workout.isActive ? _pause : _start,
         elevation: 2,
         backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Colors.white,
         icon: Icon(_workout.isActive ? Icons.pause : Icons.play_arrow),
-        label: _workout.isActive ? Text('Pause') : Text('Start workout'),
+        label: _workout.isActive
+            ? const Text('Pause')
+            : const Text('Start workout'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
@@ -82,8 +83,8 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
       ),
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 25),
-          padding: EdgeInsets.only(bottom: AppBar().preferredSize.height),
+          margin: const EdgeInsets.symmetric(horizontal: 25),
+          padding: const EdgeInsets.only(bottom: 24),
           alignment: Alignment.center,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -109,8 +110,25 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
                     .headline3
                     .copyWith(height: 0.75),
               ),
-              Text('Set: ${_workout.set} / ${_workout.config.sets}'),
-              Text('Rep: ${_workout.rep} / ${_workout.config.repetitions}'),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Set: ${_workout.set} / ${_workout.config.sets}',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    'Rep: ${_workout.rep} / ${_workout.config.repetitions}',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ],
+              ),
               const SizedBox(
                 height: 60,
               ),

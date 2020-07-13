@@ -16,14 +16,11 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         isExtended: true,
-        onPressed: () {
-          Navigator.of(context).pushNamed(NewWorkout.routeName);
-        },
+        onPressed: () => Navigator.of(context).pushNamed(NewWorkout.routeName),
         elevation: 2,
         backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Colors.white,
         icon: const Icon(Icons.add),
-        label: const Text("Add training"),
+        label: const Text("Add workout"),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
@@ -40,8 +37,10 @@ class HomeScreen extends StatelessWidget {
                 builder: (ctx, exercises, ch) => exercises.items.length <= 0
                     ? SliverList(
                         delegate: SliverChildBuilderDelegate(
-                          (ctx, index) =>
-                              Lottie.asset('assets/images/warmup.json'),
+                          (ctx, index) => Container(
+                            margin: const EdgeInsets.only(left: 10, top: 30),
+                            child: Lottie.asset('assets/images/warmup.json'),
+                          ),
                           childCount: 1,
                         ),
                       )
@@ -54,8 +53,11 @@ class HomeScreen extends StatelessWidget {
                       ),
               );
             } else {
-              newsListSliver = SliverFillRemaining(
-                child: CircularProgressIndicator(),
+              newsListSliver = SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (ctx, index) => CircularProgressIndicator(),
+                  childCount: 1,
+                ),
               );
             }
 
@@ -76,7 +78,9 @@ class HomeScreen extends StatelessWidget {
                     background: CustomFlexibleBar(
                       now: now,
                       withDate: true,
-                      title: 'Hello there',
+                      title: snapshot.hasData
+                          ? 'Ready to train?'
+                          : 'No workouts yet',
                     ),
                   ),
                 ),
