@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:core';
 
 import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
@@ -92,6 +93,7 @@ class Workout {
   }
 
   getAllSteps() {
+    var breakIndexes = [];
     List<Map<String, dynamic>> steps = [
       {
         'title': 'Get ready',
@@ -107,12 +109,11 @@ class Workout {
           'value': _config.exerciseTime,
           'step': WorkoutState.exercising
         });
-        if (_config.repetitions > 1)
-          steps.add({
-            'title': 'Rest',
-            'value': _config.restTime,
-            'step': WorkoutState.resting
-          });
+        steps.add({
+          'title': 'Rest',
+          'value': _config.restTime,
+          'step': WorkoutState.resting
+        });
       }
       if (_config.sets > 1)
         steps.add({
@@ -121,11 +122,35 @@ class Workout {
           'step': WorkoutState.breaking
         });
     }
+
+    // if (steps[steps.length - 1]['title'] == 'Rest' ||
+    //     steps[steps.length - 1]['title'] == 'Break') {
+    //   steps.removeLast();
+    // }
+
     steps.add({
       'title': 'Cool down',
       'value': _config.coolDownTime,
       'step': WorkoutState.coolDown
     });
+
+    // steps.asMap().forEach((index, element) {
+    //   if (element['title'] == 'Break') {
+    //     breakIndexes.add(index);
+    //   }
+    // });
+
+    // print('breakIndexes $breakIndexes');
+
+    // breakIndexes.forEach((idx) {
+    //   if (steps[idx + 1]['title'] == 'Rest') {
+    //     steps.removeAt(idx + 1);
+    //   }
+    //   if (steps[idx + 1]['title'] == 'Cool down') {
+    //     steps.removeAt(idx);
+    //   }
+    // });
+
     return steps;
   }
 

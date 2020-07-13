@@ -28,7 +28,7 @@ class TimerBody extends StatelessWidget {
           //margin: EdgeInsets.only(bottom: 10),
           alignment: Alignment.center,
           height: height,
-          padding: const EdgeInsets.symmetric(vertical: 15),
+          // padding: const EdgeInsets.symmetric(vertical: 16),
           width: double.infinity,
           decoration: BoxDecoration(
             color: getBackgroundColor(
@@ -39,10 +39,7 @@ class TimerBody extends StatelessWidget {
           child: Text(
             '${_workout.getAllSteps()[index]['title']} ${formatTime(duration: _workout.getAllSteps()[index]['value'])}',
             style: _workout.current == index
-                ? Theme.of(context)
-                    .textTheme
-                    .headline1
-                    .copyWith(color: Colors.black)
+                ? Theme.of(context).textTheme.headline2
                 : Theme.of(context).textTheme.headline6,
           ),
         ),

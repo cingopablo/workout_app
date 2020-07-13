@@ -23,7 +23,7 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
   Settings _settings = Settings();
 
   final _controller = ScrollController();
-  final _height = 80.0;
+  final _height = 60.0;
   int _currentValue = 0;
 
   _animateToIndex(i) => _controller.animateTo(

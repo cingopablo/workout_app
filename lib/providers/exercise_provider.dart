@@ -88,7 +88,6 @@ class ExerciseProvider with ChangeNotifier {
           ),
         )
         .toList();
-    print(dataList);
     notifyListeners();
   }
 }
