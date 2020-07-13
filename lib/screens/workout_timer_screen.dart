@@ -22,6 +22,16 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
   Workout _workout;
   Settings _settings = Settings();
 
+  final _controller = ScrollController();
+  final _height = 80.0;
+  int _currentValue = 0;
+
+  _animateToIndex(i) => _controller.animateTo(
+        _height * i,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.linear,
+      );
+
   @override
   initState() {
     super.initState();
@@ -40,6 +50,12 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
   }
 
   _onWorkoutChanged() {
+    if (_currentValue != _workout.current) {
+      _animateToIndex(_workout.current);
+      setState(() {
+        _currentValue = _workout.current;
+      });
+    }
     if (_workout.step == WorkoutState.finished) {
       Screen.keepOn(false);
     }
@@ -58,7 +74,6 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(_workout.current);
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         isExtended: true,
@@ -85,7 +100,11 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             TimerHead(workout: _workout),
-            TimerBody(workout: _workout),
+            TimerBody(
+              workout: _workout,
+              controller: _controller,
+              height: _height,
+            ),
           ],
         ),
       ),

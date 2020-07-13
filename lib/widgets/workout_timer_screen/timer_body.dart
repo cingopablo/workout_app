@@ -5,9 +5,14 @@ import '../../utils/format_time.dart';
 import '../../utils/get_background_color.dart';
 
 class TimerBody extends StatelessWidget {
+  final ScrollController controller;
+  final double height;
+
   const TimerBody({
     Key key,
     @required Workout workout,
+    this.controller,
+    this.height,
   })  : _workout = workout,
         super(key: key);
 
@@ -17,11 +22,12 @@ class TimerBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
+        controller: controller,
         itemCount: _workout.getAllSteps().length,
         itemBuilder: (ctx, index) => Container(
           //margin: EdgeInsets.only(bottom: 10),
           alignment: Alignment.center,
-          // height: 80,
+          height: height,
           padding: const EdgeInsets.symmetric(vertical: 15),
           width: double.infinity,
           decoration: BoxDecoration(
