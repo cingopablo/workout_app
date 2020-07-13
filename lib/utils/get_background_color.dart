@@ -8,14 +8,13 @@ getBackgroundColor({WorkoutState workout}) {
     case WorkoutState.starting:
       return Colors.grey[100];
     case WorkoutState.resting:
-      return Colors.blue[100];
+      return Color(0XFFa1d3fc);
     case WorkoutState.exercising:
-      // return Colors.green[300];
-      return Color(0XFFB9FE5E);
+      return Color(0XFF76f799);
     case WorkoutState.breaking:
-      return Colors.yellow[400];
+      return Color(0XFFf7ff58);
     case WorkoutState.coolDown:
-      return Colors.teal[400];
+      return Color(0XFFee83f5);
     default:
       return Colors.white;
   }

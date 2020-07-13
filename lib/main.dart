@@ -60,6 +60,11 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.w600,
               color: Colors.black,
             ),
+            bodyText1: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.normal,
+              color: Colors.black,
+            ),
           ),
         ),
         //home: HomeScreen(),

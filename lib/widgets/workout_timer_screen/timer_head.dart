@@ -62,11 +62,11 @@ class TimerHead extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                'SET ${_workout.set} / ${_workout.config.sets}',
+                'SET  ${_workout.set} / ${_workout.config.sets}',
                 style: Theme.of(context).textTheme.headline6,
               ),
               Text(
-                'REP ${_workout.rep} / ${_workout.config.repetitions}',
+                'REP  ${_workout.rep} / ${_workout.config.repetitions}',
                 style: Theme.of(context).textTheme.headline6,
               ),
             ],

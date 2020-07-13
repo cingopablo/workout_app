@@ -93,7 +93,6 @@ class Workout {
   }
 
   getAllSteps() {
-    var breakIndexes = [];
     List<Map<String, dynamic>> steps = [
       {
         'title': 'Get ready',
@@ -102,55 +101,40 @@ class Workout {
       }
     ];
 
-    for (var i = 0; i < _config.sets; i++) {
-      for (var j = 0; j < _config.repetitions; j++) {
+    for (var i = 1; i <= _config.sets; i++) {
+      for (var j = 1; j <= _config.repetitions; j++) {
         steps.add({
           'title': 'Exercise',
           'value': _config.exerciseTime,
           'step': WorkoutState.exercising
         });
-        steps.add({
-          'title': 'Rest',
-          'value': _config.restTime,
-          'step': WorkoutState.resting
-        });
+        if (j != _config.repetitions) {
+          steps.add({
+            'title': 'Rest',
+            'value': _config.restTime,
+            'step': WorkoutState.resting
+          });
+        }
+        if (j == _config.repetitions) {
+          steps.add({
+            'title': 'Break',
+            'value': _config.breakTime,
+            'step': WorkoutState.breaking
+          });
+        }
       }
-      if (_config.sets > 1)
-        steps.add({
-          'title': 'Break',
-          'value': _config.breakTime,
-          'step': WorkoutState.breaking
-        });
     }
 
-    // if (steps[steps.length - 1]['title'] == 'Rest' ||
-    //     steps[steps.length - 1]['title'] == 'Break') {
-    //   steps.removeLast();
-    // }
+    if (steps[steps.length - 1]['title'] == 'Rest' ||
+        steps[steps.length - 1]['title'] == 'Break') {
+      steps.removeLast();
+    }
 
     steps.add({
       'title': 'Cool down',
       'value': _config.coolDownTime,
       'step': WorkoutState.coolDown
     });
-
-    // steps.asMap().forEach((index, element) {
-    //   if (element['title'] == 'Break') {
-    //     breakIndexes.add(index);
-    //   }
-    // });
-
-    // print('breakIndexes $breakIndexes');
-
-    // breakIndexes.forEach((idx) {
-    //   if (steps[idx + 1]['title'] == 'Rest') {
-    //     steps.removeAt(idx + 1);
-    //   }
-    //   if (steps[idx + 1]['title'] == 'Cool down') {
-    //     steps.removeAt(idx);
-    //   }
-    // });
-
     return steps;
   }
 

@@ -25,16 +25,18 @@ class TimerBody extends StatelessWidget {
         controller: controller,
         itemCount: _workout.getAllSteps().length,
         itemBuilder: (ctx, index) => Container(
-          //margin: EdgeInsets.only(bottom: 10),
+          margin: EdgeInsets.only(
+            bottom: 5,
+          ),
           alignment: Alignment.center,
-          height: height,
-          // padding: const EdgeInsets.symmetric(vertical: 16),
+          height: index != _workout.getAllSteps().length - 1
+              ? height
+              : MediaQuery.of(context).size.width * 0.5,
           width: double.infinity,
           decoration: BoxDecoration(
             color: getBackgroundColor(
               workout: _workout.getAllSteps()[index]['step'],
             ),
-            //borderRadius: BorderRadius.circular(20),
           ),
           child: Text(
             '${_workout.getAllSteps()[index]['title']} ${formatTime(duration: _workout.getAllSteps()[index]['value'])}',

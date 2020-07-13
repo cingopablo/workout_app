@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 import '../../models/exercise.dart';
 import '../../utils/format_time.dart';
@@ -48,7 +49,7 @@ class WorkoutTile extends StatelessWidget {
               },
           child: Container(
             width: double.infinity,
-            height: 108.0,
+            //height: 150.0,
             decoration: BoxDecoration(
               color: Colors.white,
               // gradient: LinearGradient(
@@ -62,86 +63,67 @@ class WorkoutTile extends StatelessWidget {
               borderRadius: BorderRadius.circular(20.0),
             ),
             child: Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 30,
-              ),
+              margin: const EdgeInsets.all(25),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Row(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Wrap(
-                        direction: Axis.vertical,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            exercise.sets.toString(),
-                            style:
-                                Theme.of(context).textTheme.headline2.copyWith(
-                                      color: Colors.black,
-                                      height: 1,
-                                    ),
-                          ),
-                          Text(
-                            'sets',
-                            style:
-                                Theme.of(context).textTheme.headline6.copyWith(
-                                      height: 0.8,
-                                    ),
-                          ),
-                        ],
+                      Text(
+                        DateFormat.yMMMMd()
+                            .format(DateTime.parse(exercise.createdAt)),
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
-                      const SizedBox(
-                        width: 20,
+                      Text(
+                        exercise.title,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6
+                            .copyWith(fontSize: 20),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
                         children: <Widget>[
-                          Text(
-                            exercise.title,
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  const FaIcon(
-                                    FontAwesomeIcons.running,
-                                    size: 18,
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(formatTime(
-                                    duration: exercise.exerciseTime,
-                                  )),
-                                ],
-                              ),
+                              const FaIcon(FontAwesomeIcons.stopwatch),
                               const SizedBox(
-                                width: 10,
+                                width: 5,
                               ),
-                              Row(
-                                children: <Widget>[
-                                  const FaIcon(
-                                    FontAwesomeIcons.coffee,
-                                    size: 18,
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(formatTime(
-                                    duration: exercise.restTime,
-                                  )),
-                                ],
+                              Text(
+                                formatTime(
+                                  duration: exercise.getTotalTime(),
+                                ),
+                                style: Theme.of(context).textTheme.bodyText1,
                               ),
                             ],
-                          )
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                'SETS: ${exercise.sets.toString()}',
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                'REPS: ${exercise.repetitions.toString()}',
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ],
@@ -152,6 +134,93 @@ class WorkoutTile extends StatelessWidget {
                   ),
                 ],
               ),
+              // child: Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   crossAxisAlignment: CrossAxisAlignment.center,
+              //   children: <Widget>[
+              //     Row(
+              //       children: <Widget>[
+              //         Wrap(
+              //           direction: Axis.vertical,
+              //           crossAxisAlignment: WrapCrossAlignment.center,
+              //           children: <Widget>[
+              //             Text(
+              //               formatTime(duration: exercise.getTotalTime()),
+              //               style:
+              //                   Theme.of(context).textTheme.headline2.copyWith(
+              //                         color: Colors.black,
+              //                         //height: 1,
+              //                       ),
+              //             ),
+              //             Text(
+              //               'Time',
+              //               style:
+              //                   Theme.of(context).textTheme.headline6.copyWith(
+              //                       //        height: 0.8,
+              //                       ),
+              //             ),
+              //           ],
+              //         ),
+              //         const SizedBox(
+              //           width: 20,
+              //         ),
+              //         Column(
+              //           mainAxisAlignment: MainAxisAlignment.center,
+              //           crossAxisAlignment: CrossAxisAlignment.start,
+              //           children: <Widget>[
+              //             Text(
+              //               exercise.title,
+              //               style: Theme.of(context).textTheme.headline6,
+              //             ),
+              //             const SizedBox(
+              //               height: 10,
+              //             ),
+              //             Row(
+              //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //               children: <Widget>[
+              //                 Row(
+              //                   children: <Widget>[
+              //                     const FaIcon(
+              //                       FontAwesomeIcons.running,
+              //                       size: 18,
+              //                     ),
+              //                     const SizedBox(
+              //                       width: 5,
+              //                     ),
+              //                     Text(formatTime(
+              //                       duration: exercise.exerciseTime,
+              //                     )),
+              //                   ],
+              //                 ),
+              //                 const SizedBox(
+              //                   width: 10,
+              //                 ),
+              //                 Row(
+              //                   children: <Widget>[
+              //                     const FaIcon(
+              //                       FontAwesomeIcons.coffee,
+              //                       size: 18,
+              //                     ),
+              //                     const SizedBox(
+              //                       width: 5,
+              //                     ),
+              //                     Text(formatTime(
+              //                       duration: exercise.restTime,
+              //                     )),
+              //                   ],
+              //                 ),
+              //               ],
+              //             )
+              //           ],
+              //         ),
+              //       ],
+              //     ),
+              //     const Icon(
+              //       Icons.chevron_right,
+              //       size: 36,
+              //     ),
+              //   ],
+              // ),
             ),
           )),
     );

@@ -27,7 +27,7 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
   int _currentValue = 0;
 
   _animateToIndex(i) => _controller.animateTo(
-        _height * i,
+        (_height + 5) * i,
         duration: Duration(milliseconds: 300),
         curve: Curves.linear,
       );
@@ -79,11 +79,21 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
         isExtended: true,
         onPressed: _workout.isActive ? _pause : _start,
         elevation: 2,
-        backgroundColor: Theme.of(context).primaryColor,
-        icon: Icon(_workout.isActive ? Icons.pause : Icons.play_arrow),
+        backgroundColor: Theme.of(context).backgroundColor,
+        icon: Icon(
+          _workout.isActive ? Icons.pause : Icons.play_arrow,
+          color: Colors.black,
+          size: 30,
+        ),
         label: _workout.isActive
-            ? const Text('Pause')
-            : const Text('Start workout'),
+            ? Text(
+                'Pause',
+                style: Theme.of(context).textTheme.headline6,
+              )
+            : Text(
+                'Start workout',
+                style: Theme.of(context).textTheme.headline6,
+              ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(

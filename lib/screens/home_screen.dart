@@ -19,8 +19,17 @@ class HomeScreen extends StatelessWidget {
         onPressed: () => Navigator.of(context).pushNamed(NewWorkout.routeName),
         elevation: 2,
         backgroundColor: Theme.of(context).primaryColor,
-        icon: const Icon(Icons.add),
-        label: const Text("Add workout"),
+        icon: const Icon(
+          Icons.add,
+          size: 30,
+        ),
+        label: Text(
+          "Add workout",
+          style: Theme.of(context)
+              .textTheme
+              .headline6
+              .copyWith(color: Colors.white),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
@@ -55,7 +64,7 @@ class HomeScreen extends StatelessWidget {
             } else {
               newsListSliver = SliverList(
                 delegate: SliverChildBuilderDelegate(
-                  (ctx, index) => CircularProgressIndicator(),
+                  (ctx, index) => Text(''),
                   childCount: 1,
                 ),
               );
@@ -65,22 +74,22 @@ class HomeScreen extends StatelessWidget {
               slivers: <Widget>[
                 SliverAppBar(
                   elevation: 0,
-                  expandedHeight: 160,
+                  expandedHeight: 180,
                   iconTheme: const IconThemeData(color: Colors.black),
                   backgroundColor: Theme.of(context).backgroundColor,
                   pinned: true,
                   floating: true,
                   primary: true,
                   centerTitle: true,
-                  title: Text('My workouts',
-                      style: Theme.of(context).textTheme.headline6),
+                  title: Text(
+                    'My workouts',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
                   flexibleSpace: FlexibleSpaceBar(
                     background: CustomFlexibleBar(
                       now: now,
                       withDate: true,
-                      title: snapshot.hasData
-                          ? 'Ready to train?'
-                          : 'No workouts yet',
+                      title: 'Ready to train?',
                     ),
                   ),
                 ),

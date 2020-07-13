@@ -61,7 +61,13 @@ class WorkoutPreviewScreen extends StatelessWidget {
         },
         elevation: 2,
         backgroundColor: Theme.of(context).primaryColor,
-        label: const Text('Continue'),
+        label: Text(
+          'Continue',
+          style: Theme.of(context)
+              .textTheme
+              .headline6
+              .copyWith(color: Colors.white),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
@@ -69,7 +75,7 @@ class WorkoutPreviewScreen extends StatelessWidget {
           slivers: <Widget>[
             SliverAppBar(
               elevation: 0,
-              expandedHeight: 200,
+              expandedHeight: 180,
               iconTheme: IconThemeData(color: Colors.black),
               backgroundColor: Theme.of(context).backgroundColor,
               pinned: true,
