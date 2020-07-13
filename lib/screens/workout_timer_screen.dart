@@ -83,11 +83,11 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
       ),
       body: SafeArea(
         child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 25),
+          margin: const EdgeInsets.only(left: 25, right: 25, top: 25),
           padding: const EdgeInsets.only(bottom: 24),
           alignment: Alignment.center,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Text(
                 stepName(_workout.step),
@@ -114,62 +114,64 @@ class _WorkoutTimerScreenState extends State<WorkoutTimerScreen> {
                 height: 10,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Set: ${_workout.set} / ${_workout.config.sets}',
+                    'SET ${_workout.set} / ${_workout.config.sets}',
                     style: Theme.of(context).textTheme.headline6,
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
                   Text(
-                    'Rep: ${_workout.rep} / ${_workout.config.repetitions}',
+                    'REP ${_workout.rep} / ${_workout.config.repetitions}',
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 ],
               ),
               const SizedBox(
-                height: 60,
-              ),
-              if (_workout.getNextStep() != null)
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Coming next',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                ),
-              const SizedBox(
                 height: 10,
               ),
-              if (_workout.getNextStep() != null)
-                Container(
-                  alignment: Alignment.center,
-                  height: 80,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: getBackgroundColor(
-                      workout: _workout,
-                      context: context,
+
+              Divider(
+                color: Colors.black,
+                thickness: 2,
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: 20,
+                  itemBuilder: (ctx, index) => Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    alignment: Alignment.center,
+                    // height: 80,
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: getBackgroundColor(
+                        workout: _workout,
+                        context: context,
+                      ),
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      FaIcon(getIcon(workout: _workout)),
-                      const SizedBox(width: 10),
-                      Text(_workout.getNextStep().toString()),
-                    ],
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        FaIcon(
+                          getIcon(workout: _workout),
+                          size: 30,
+                        ),
+                        const SizedBox(width: 10),
+                        Text(_workout.getNextStep().toString()),
+                      ],
+                    ),
                   ),
                 ),
-              if (_workout.getNextStep() == null)
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 25),
-                  height: 30,
-                  color: Colors.red,
-                )
+              ),
+              // if (_workout.getNextStep() != null)
+
+              // if (_workout.getNextStep() == null)
+              //   Container(
+              //     margin: EdgeInsets.symmetric(horizontal: 25),
+              //     height: 30,
+              //     color: Colors.red,
+              //   )
             ],
           ),
         ),
