@@ -1,9 +1,8 @@
+import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
-import 'package:workout_app/widgets/new_workout/number_selector.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../utils/format_time.dart';
 import '../providers/exercise_provider.dart';
@@ -11,6 +10,7 @@ import '../screens/workout_preview_screen.dart';
 import '../widgets/new_workout/input_text.dart';
 import '../widgets/new_workout/editable_tile.dart';
 import '../widgets/new_workout/timer_selector.dart';
+import '../widgets/new_workout/number_selector.dart';
 
 class NewWorkout extends StatefulWidget {
   static const routeName = '/new_workout';
@@ -21,7 +21,6 @@ class NewWorkout extends StatefulWidget {
 
 class _NewWorkoutState extends State<NewWorkout> {
   final _form = GlobalKey<FormState>();
-  var _now = DateTime.now();
   var _initValues = {
     'title': '',
     'sets': 1,

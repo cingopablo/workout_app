@@ -67,7 +67,6 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        //home: HomeScreen(),
         routes: {
           '/': (ctx) => HomeScreen(),
           WorkoutPreviewScreen.routeName: (ctx) => WorkoutPreviewScreen(),

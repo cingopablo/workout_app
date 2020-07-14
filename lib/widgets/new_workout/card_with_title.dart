@@ -30,18 +30,6 @@ class CardWithTitle extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
-              // boxShadow: [
-              //   BoxShadow(
-              //     offset: const Offset(2.5, 2.5),
-              //     blurRadius: 8,
-              //     color: Colors.grey.withOpacity(0.1),
-              //   ),
-              //   BoxShadow(
-              //     offset: const Offset(-2.5, -3.5),
-              //     blurRadius: 8,
-              //     color: Colors.grey.withOpacity(0.1),
-              //   ),
-              // ],
             ),
             height: height,
             margin: const EdgeInsets.only(top: 15),

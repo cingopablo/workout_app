@@ -15,11 +15,9 @@ class TimerSelectorTheme extends StatelessWidget {
         textTheme: Theme.of(context).textTheme.copyWith(
               headline: Theme.of(context).textTheme.headline2.copyWith(
                     color: Theme.of(context).primaryColor,
-                    //height: 0.01,
                   ), //other highlighted style
               body1: Theme.of(context).textTheme.headline6.copyWith(
                     color: Colors.grey,
-                    //height: 0.01,
                   ), //not highlighted styles
             ),
       ),

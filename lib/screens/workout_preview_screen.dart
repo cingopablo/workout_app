@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:workout_app/utils/format_time.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../models/exercise.dart';
+import '../utils/format_time.dart';
 import '../providers/exercise_provider.dart';
 import '../widgets/custom_flexible_bar.dart';
 import '../screens/workout_timer_screen.dart';
