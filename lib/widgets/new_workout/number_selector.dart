@@ -6,10 +6,12 @@ import './selector_theme.dart';
 class NumberSelector extends StatefulWidget {
   final Function setValues;
   final String valueKey;
+  final int initialValue;
 
   NumberSelector({
-    this.setValues,
-    this.valueKey,
+    @required this.setValues,
+    @required this.valueKey,
+    @required this.initialValue,
   });
 
   @override
@@ -18,6 +20,12 @@ class NumberSelector extends StatefulWidget {
 
 class _NumberSelectorState extends State<NumberSelector> {
   int _initialValue = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    _initialValue = widget.initialValue;
+  }
 
   @override
   Widget build(BuildContext context) {

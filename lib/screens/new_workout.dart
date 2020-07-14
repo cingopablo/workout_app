@@ -130,6 +130,7 @@ class _NewWorkoutState extends State<NewWorkout> {
                         size: 20,
                       ),
                       timer: NumberSelector(
+                        initialValue: _initValues['sets'],
                         setValues: _setValues,
                         valueKey: 'sets',
                       ),
@@ -145,6 +146,7 @@ class _NewWorkoutState extends State<NewWorkout> {
                         size: 20,
                       ),
                       timer: NumberSelector(
+                        initialValue: _initValues['reps'],
                         setValues: _setValues,
                         valueKey: 'reps',
                       ),
@@ -168,6 +170,8 @@ class _NewWorkoutState extends State<NewWorkout> {
                   size: 20,
                 ),
                 timer: TimerSelector(
+                  initialValue: _initValues['exercise_time_min'],
+                  initialValue2: _initValues['exercise_time_sec'],
                   setValues: _setValues,
                   key1: 'exercise_time_min',
                   key2: 'exercise_time_sec',
@@ -189,6 +193,8 @@ class _NewWorkoutState extends State<NewWorkout> {
                   size: 20,
                 ),
                 timer: TimerSelector(
+                  initialValue: _initValues['resting_time_min'],
+                  initialValue2: _initValues['resting_time_sec'],
                   setValues: _setValues,
                   key1: 'resting_time_min',
                   key2: 'resting_time_sec',
@@ -210,6 +216,8 @@ class _NewWorkoutState extends State<NewWorkout> {
                   size: 20,
                 ),
                 timer: TimerSelector(
+                  initialValue: _initValues['break_time_min'],
+                  initialValue2: _initValues['break_time_sec'],
                   setValues: _setValues,
                   key1: 'break_time_min',
                   key2: 'break_time_sec',

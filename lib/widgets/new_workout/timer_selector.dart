@@ -7,11 +7,15 @@ class TimerSelector extends StatefulWidget {
   final Function setValues;
   final String key1;
   final String key2;
+  final int initialValue;
+  int initialValue2;
 
   TimerSelector({
     @required this.setValues,
     @required this.key1,
     this.key2 = '',
+    @required this.initialValue,
+    @required this.initialValue2,
   });
 
   @override
@@ -21,6 +25,14 @@ class TimerSelector extends StatefulWidget {
 class _TimerSelectorState extends State<TimerSelector> {
   int _initialValue = 0;
   int _initialValue2 = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _initialValue = widget.initialValue;
+    _initialValue2 = widget.initialValue2;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
