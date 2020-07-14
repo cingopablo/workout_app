@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:workout_app/utils/format_time.dart';
 
 import '../models/exercise.dart';
 import '../providers/exercise_provider.dart';
@@ -107,26 +109,80 @@ class WorkoutPreviewScreen extends StatelessWidget {
               ),
             ),
             SliverList(
-              delegate: SliverChildListDelegate.fixed([
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 25),
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.width,
-                  child: GridView.builder(
-                    itemCount: 6,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 1.4,
-                      crossAxisSpacing: 15,
-                      mainAxisSpacing: 15,
-                    ),
-                    itemBuilder: (ctx, index) => PreviewTile(
-                      exercise: loadedExercise,
-                      index: index,
+              delegate: SliverChildListDelegate.fixed(
+                [
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: PreviewTile(
+                          title: 'Sets',
+                          value: loadedExercise.sets.toString(),
+                          margin: const EdgeInsets.only(left: 25, right: 5),
+                          icon: FaIcon(
+                            FontAwesomeIcons.retweet,
+                            size: 20,
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: PreviewTile(
+                          title: 'Reps',
+                          value: loadedExercise.repetitions.toString(),
+                          margin: const EdgeInsets.only(left: 5, right: 25),
+                          icon: FaIcon(
+                            FontAwesomeIcons.times,
+                            size: 20,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  PreviewTile(
+                    title: 'Total time',
+                    value: formatTime(duration: loadedExercise.getTotalTime()),
+                    icon: FaIcon(
+                      FontAwesomeIcons.stopwatch,
+                      size: 20,
                     ),
                   ),
-                )
-              ]),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  PreviewTile(
+                    title: 'Exercise time',
+                    value: formatTime(duration: loadedExercise.exerciseTime),
+                    icon: FaIcon(
+                      FontAwesomeIcons.running,
+                      size: 20,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  PreviewTile(
+                    title: 'Rest time',
+                    value: formatTime(duration: loadedExercise.restTime),
+                    icon: FaIcon(
+                      FontAwesomeIcons.couch,
+                      size: 20,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  PreviewTile(
+                    title: 'Break',
+                    value: formatTime(duration: loadedExercise.breakTime),
+                    icon: FaIcon(
+                      FontAwesomeIcons.coffee,
+                      size: 20,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

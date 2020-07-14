@@ -6,8 +6,10 @@ String formatTime({
   String seconds = (duration.inSeconds % 60).toString().padLeft(2, '0');
 
   if (isPreview) {
-    if (minutes == '00') return '$seconds s';
-    if (seconds == '00') return '$minutes min';
+    if (duration.inSeconds > 0) {
+      return '${duration.inMinutes + 1} Min.';
+    }
   }
+
   return '$minutes:$seconds';
 }

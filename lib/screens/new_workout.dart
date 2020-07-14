@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
+import 'package:workout_app/widgets/new_workout/number_selector.dart';
 
+import '../utils/format_time.dart';
 import '../providers/exercise_provider.dart';
 import '../screens/workout_preview_screen.dart';
 import '../widgets/new_workout/input_text.dart';
+import '../widgets/new_workout/editable_tile.dart';
 import '../widgets/new_workout/timer_selector.dart';
 
 class NewWorkout extends StatefulWidget {
@@ -106,190 +110,114 @@ class _NewWorkoutState extends State<NewWorkout> {
             Text('New workout', style: Theme.of(context).textTheme.headline6),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            left: 25,
-            right: 25,
-            top: 10,
-          ),
-          child: Form(
-            key: _form,
-            child: ListView(
-              children: <Widget>[
-                InputText(
-                  initialValue: _initValues['title'],
+        child: Form(
+          key: _form,
+          child: ListView(
+            children: <Widget>[
+              InputText(
+                initialValue: _initValues['title'],
+                setValues: _setValues,
+              ),
+              Row(
+                children: <Widget>[
+                  Flexible(
+                    child: EditableTile(
+                      title: 'Sets',
+                      value: _initValues['sets'].toString(),
+                      margin: const EdgeInsets.only(left: 25, right: 5),
+                      icon: FaIcon(
+                        FontAwesomeIcons.retweet,
+                        size: 20,
+                      ),
+                      timer: NumberSelector(
+                        setValues: _setValues,
+                        valueKey: 'sets',
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    child: EditableTile(
+                      title: 'Reps',
+                      value: _initValues['reps'].toString(),
+                      margin: const EdgeInsets.only(left: 5, right: 25),
+                      icon: FaIcon(
+                        FontAwesomeIcons.times,
+                        size: 20,
+                      ),
+                      timer: NumberSelector(
+                        setValues: _setValues,
+                        valueKey: 'reps',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              EditableTile(
+                title: 'Exercise time',
+                value: formatTime(
+                  duration: Duration(
+                    minutes: _initValues['exercise_time_min'],
+                    seconds: _initValues['exercise_time_sec'],
+                  ),
+                ),
+                icon: FaIcon(
+                  FontAwesomeIcons.running,
+                  size: 20,
+                ),
+                timer: TimerSelector(
                   setValues: _setValues,
+                  key1: 'exercise_time_min',
+                  key2: 'exercise_time_sec',
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'Number of sets',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    TimerSelector(
-                      initialValue: _initValues['sets'],
-                      setValues: _setValues,
-                      key1: 'sets',
-                      isTime: false,
-                      height: 50.0,
-                    ),
-                  ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              EditableTile(
+                title: 'Rest time',
+                value: formatTime(
+                  duration: Duration(
+                    minutes: _initValues['resting_time_min'],
+                    seconds: _initValues['resting_time_sec'],
+                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'Number of reps',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    TimerSelector(
-                      initialValue: _initValues['reps'],
-                      setValues: _setValues,
-                      key1: 'reps',
-                      isTime: false,
-                      height: 50.0,
-                    ),
-                  ],
+                icon: FaIcon(
+                  FontAwesomeIcons.couch,
+                  size: 20,
                 ),
-                SizedBox(
-                  height: 5,
+                timer: TimerSelector(
+                  setValues: _setValues,
+                  key1: 'resting_time_min',
+                  key2: 'resting_time_sec',
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'Exercise time',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    TimerSelector(
-                      initialValue: _initValues['exercise_time_min'],
-                      initialValue2: _initValues['exercise_time_sec'],
-                      setValues: _setValues,
-                      key1: 'exercise_time_min',
-                      key2: 'exercise_time_sec',
-                    ),
-                  ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              EditableTile(
+                title: 'Break',
+                value: formatTime(
+                  duration: Duration(
+                    minutes: _initValues['break_time_min'],
+                    seconds: _initValues['break_time_sec'],
+                  ),
                 ),
-                SizedBox(
-                  height: 5,
+                icon: FaIcon(
+                  FontAwesomeIcons.coffee,
+                  size: 20,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'Resting time',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    TimerSelector(
-                      initialValue: _initValues['resting_time_min'],
-                      initialValue2: _initValues['resting_time_sec'],
-                      setValues: _setValues,
-                      key1: 'resting_time_min',
-                      key2: 'resting_time_sec',
-                    ),
-                  ],
+                timer: TimerSelector(
+                  setValues: _setValues,
+                  key1: 'break_time_min',
+                  key2: 'break_time_sec',
                 ),
-                SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'Break time',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    TimerSelector(
-                      initialValue: _initValues['break_time_min'],
-                      initialValue2: _initValues['break_time_sec'],
-                      setValues: _setValues,
-                      key1: 'break_time_min',
-                      key2: 'break_time_sec',
-                    ),
-                  ],
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-        // child: CustomScrollView(
-        //   slivers: <Widget>[
-        //     SliverAppBar(
-        //       elevation: 0,
-        //       expandedHeight: 160,
-        //       iconTheme: const IconThemeData(color: Colors.black),
-        //       backgroundColor: Theme.of(context).backgroundColor,
-        //       pinned: true,
-        //       floating: true,
-        //       primary: true,
-        //       centerTitle: true,
-        //       title: Text('New workout',
-        //           style: Theme.of(context).textTheme.headline6),
-        //       flexibleSpace: FlexibleSpaceBar(
-        //         background: CustomFlexibleBar(
-        //           now: _now,
-        //           title: 'Add a workout',
-        //         ),
-        //       ),
-        //     ),
-        //     SliverList(
-        //       delegate: SliverChildListDelegate([
-        //         InputText(setValues: _setValues),
-        //         CardWithTitle(
-        //           height: 80,
-        //           cardTitle: 'Number of sets',
-        //           child: TimerSelector(
-        //             initialValue: _initValues['sets'],
-        //             setValues: _setValues,
-        //             key1: 'sets',
-        //             isTime: false,
-        //           ),
-        //         ),
-        //         CardWithTitle(
-        //           height: 80,
-        //           cardTitle: 'Number of repetitions',
-        //           child: TimerSelector(
-        //             initialValue: _initValues['reps'],
-        //             setValues: _setValues,
-        //             key1: 'reps',
-        //             isTime: false,
-        //           ),
-        //         ),
-        //         CardWithTitle(
-        //           cardTitle: 'Exercise time',
-        //           child: TimerSelector(
-        //               initialValue: _initValues['exercise_time_min'],
-        //               initialValue2: _initValues['exercise_time_sec'],
-        //               setValues: _setValues,
-        //               key1: 'exercise_time_min',
-        //               key2: 'exercise_time_sec'),
-        //         ),
-        //         CardWithTitle(
-        //           cardTitle: 'Resting time',
-        //           child: TimerSelector(
-        //               initialValue: _initValues['resting_time_min'],
-        //               initialValue2: _initValues['resting_time_sec'],
-        //               setValues: _setValues,
-        //               key1: 'resting_time_min',
-        //               key2: 'resting_time_sec'),
-        //         ),
-        //         CardWithTitle(
-        //           cardTitle: 'Break between sets',
-        //           child: TimerSelector(
-        //               initialValue: _initValues['break_time_min'],
-        //               initialValue2: _initValues['break_time_sec'],
-        //               setValues: _setValues,
-        //               key1: 'break_time_min',
-        //               key2: 'break_time_sec'),
-        //         ),
-        //         const SizedBox(
-        //           height: 45,
-        //         ),
-        //       ]),
-        //     ),
-        //   ],
-        // ),
       ),
     );
   }

@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         title: 'Workout app',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: Color(0xFF510EC3),
+          primaryColor: Color(0xFF631CD3),
           accentColor: Color(0xFF823FCC),
           primaryColorDark: Color(0xFFD9ABF6),
           primaryColorLight: Color(0xFFE0CEFF),
@@ -61,8 +61,8 @@ class MyApp extends StatelessWidget {
               color: Colors.black,
             ),
             bodyText1: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.normal,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
               color: Colors.black,
             ),
           ),
