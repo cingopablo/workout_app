@@ -2,14 +2,78 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:rate_my_app/rate_my_app.dart';
 
 import '../screens/new_workout.dart';
 import '../providers/exercise_provider.dart';
 import '../widgets/custom_flexible_bar.dart';
 import '../widgets/home_screen/workout_tile.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final now = DateTime.now();
+
+  RateMyApp _rateMyApp = RateMyApp(
+    preferencesPrefix: 'rateMyApp_',
+    minDays: 3,
+    minLaunches: 7,
+    remindDays: 2,
+    remindLaunches: 5,
+    // googlePlayIdentifier: ''
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _rateMyApp.init().then((_) => {
+          //if (_rateMyApp.shouldOpenDialog)
+          //{
+          _rateMyApp.showStarRateDialog(
+            context,
+            title: 'Are you enjoying this app?',
+            message:
+                'If you like this app, please take a little bit of your time to review it !\nIt really helps us and it shouldn\'t take you more than one minute.',
+            actionsBuilder: (context, stars) {
+              return [
+                FlatButton(
+                  child: Text('OK'),
+                  onPressed: () async {
+                    await _rateMyApp
+                        .callEvent(RateMyAppEventType.rateButtonPressed);
+                    Navigator.pop<RateMyAppDialogButton>(
+                        context, RateMyAppDialogButton.rate);
+
+                    if (stars <= 3) {
+                      print('Navigate to contact screen');
+                    } else {
+                      print('navigate to app store and leave a review');
+                    }
+                    print('Thanks for the ' +
+                        (stars == null ? '0' : stars.round().toString()) +
+                        ' star(s) !');
+
+                    DoNotOpenAgainCondition();
+                  },
+                ),
+              ];
+            },
+            ignoreIOS: false,
+            dialogStyle: DialogStyle(
+              titleAlign: TextAlign.center,
+              messageAlign: TextAlign.center,
+              messagePadding: EdgeInsets.only(bottom: 20),
+            ),
+            starRatingOptions: StarRatingOptions(),
+            onDismissed: () =>
+                _rateMyApp.callEvent(RateMyAppEventType.laterButtonPressed),
+          )
+          //  }
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +138,7 @@ class HomeScreen extends StatelessWidget {
               slivers: <Widget>[
                 SliverAppBar(
                   elevation: 0,
-                  expandedHeight: 180,
+                  expandedHeight: 160,
                   iconTheme: const IconThemeData(color: Colors.black),
                   backgroundColor: Theme.of(context).backgroundColor,
                   pinned: true,

@@ -77,7 +77,7 @@ class WorkoutPreviewScreen extends StatelessWidget {
           slivers: <Widget>[
             SliverAppBar(
               elevation: 0,
-              expandedHeight: 180,
+              expandedHeight: loadedExercise.title.length > 10 ? 190 : 160,
               iconTheme: IconThemeData(color: Colors.black),
               backgroundColor: Theme.of(context).backgroundColor,
               pinned: true,

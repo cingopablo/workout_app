@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -22,13 +20,15 @@ class EditableTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => showModalBottomSheet(
-        context: context,
-        builder: (ctx) => Container(
-          height: MediaQuery.of(context).size.width * 0.5,
-          child: timer,
+      onTap: () => {
+        showModalBottomSheet(
+          context: context,
+          builder: (ctx) => Container(
+            height: MediaQuery.of(context).size.width * 0.5,
+            child: timer,
+          ),
         ),
-      ),
+      },
       child: Container(
         margin: margin,
         padding: const EdgeInsets.all(25),

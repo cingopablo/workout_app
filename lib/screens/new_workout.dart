@@ -109,121 +109,142 @@ class _NewWorkoutState extends State<NewWorkout> {
         title:
             Text('New workout', style: Theme.of(context).textTheme.headline6),
       ),
-      body: SafeArea(
-        child: Form(
-          key: _form,
-          child: ListView(
-            children: <Widget>[
-              InputText(
-                initialValue: _initValues['title'],
-                setValues: _setValues,
-              ),
-              Row(
-                children: <Widget>[
-                  Flexible(
-                    child: EditableTile(
-                      title: 'Sets',
-                      value: _initValues['sets'].toString(),
-                      margin: const EdgeInsets.only(left: 25, right: 5),
-                      icon: FaIcon(
-                        FontAwesomeIcons.retweet,
-                        size: 20,
-                      ),
-                      timer: NumberSelector(
-                        initialValue: _initValues['sets'],
-                        setValues: _setValues,
-                        valueKey: 'sets',
+      body: GestureDetector(
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus &&
+              currentFocus.focusedChild != null) {
+            currentFocus.focusedChild.unfocus();
+          }
+        },
+        child: SafeArea(
+          child: Form(
+            key: _form,
+            child: ListView(
+              children: <Widget>[
+                Container(
+                  margin: const EdgeInsets.only(
+                    left: 25,
+                    right: 25,
+                    bottom: 20,
+                    top: 30,
+                  ),
+                  child: Text(
+                    'Fill me',
+                    style: Theme.of(context).textTheme.headline1,
+                  ),
+                ),
+                InputText(
+                  initialValue: _initValues['title'],
+                  setValues: _setValues,
+                ),
+                Row(
+                  children: <Widget>[
+                    Flexible(
+                      child: EditableTile(
+                        title: 'Sets',
+                        value: _initValues['sets'].toString(),
+                        margin: const EdgeInsets.only(left: 25, right: 5),
+                        icon: FaIcon(
+                          FontAwesomeIcons.retweet,
+                          size: 20,
+                        ),
+                        timer: NumberSelector(
+                          initialValue: _initValues['sets'],
+                          setValues: _setValues,
+                          valueKey: 'sets',
+                        ),
                       ),
                     ),
-                  ),
-                  Flexible(
-                    child: EditableTile(
-                      title: 'Reps',
-                      value: _initValues['reps'].toString(),
-                      margin: const EdgeInsets.only(left: 5, right: 25),
-                      icon: FaIcon(
-                        FontAwesomeIcons.times,
-                        size: 20,
-                      ),
-                      timer: NumberSelector(
-                        initialValue: _initValues['reps'],
-                        setValues: _setValues,
-                        valueKey: 'reps',
+                    Flexible(
+                      child: EditableTile(
+                        title: 'Reps',
+                        value: _initValues['reps'].toString(),
+                        margin: const EdgeInsets.only(left: 5, right: 25),
+                        icon: FaIcon(
+                          FontAwesomeIcons.times,
+                          size: 20,
+                        ),
+                        timer: NumberSelector(
+                          initialValue: _initValues['reps'],
+                          setValues: _setValues,
+                          valueKey: 'reps',
+                        ),
                       ),
                     ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                EditableTile(
+                  title: 'Exercise time',
+                  value: formatTime(
+                    duration: Duration(
+                      minutes: _initValues['exercise_time_min'],
+                      seconds: _initValues['exercise_time_sec'],
+                    ),
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              EditableTile(
-                title: 'Exercise time',
-                value: formatTime(
-                  duration: Duration(
-                    minutes: _initValues['exercise_time_min'],
-                    seconds: _initValues['exercise_time_sec'],
+                  icon: FaIcon(
+                    FontAwesomeIcons.running,
+                    size: 20,
                   ),
-                ),
-                icon: FaIcon(
-                  FontAwesomeIcons.running,
-                  size: 20,
-                ),
-                timer: TimerSelector(
-                  initialValue: _initValues['exercise_time_min'],
-                  initialValue2: _initValues['exercise_time_sec'],
-                  setValues: _setValues,
-                  key1: 'exercise_time_min',
-                  key2: 'exercise_time_sec',
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              EditableTile(
-                title: 'Rest time',
-                value: formatTime(
-                  duration: Duration(
-                    minutes: _initValues['resting_time_min'],
-                    seconds: _initValues['resting_time_sec'],
+                  timer: TimerSelector(
+                    initialValue: _initValues['exercise_time_min'],
+                    initialValue2: _initValues['exercise_time_sec'],
+                    setValues: _setValues,
+                    key1: 'exercise_time_min',
+                    key2: 'exercise_time_sec',
                   ),
                 ),
-                icon: FaIcon(
-                  FontAwesomeIcons.couch,
-                  size: 20,
+                SizedBox(
+                  height: 10,
                 ),
-                timer: TimerSelector(
-                  initialValue: _initValues['resting_time_min'],
-                  initialValue2: _initValues['resting_time_sec'],
-                  setValues: _setValues,
-                  key1: 'resting_time_min',
-                  key2: 'resting_time_sec',
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              EditableTile(
-                title: 'Break',
-                value: formatTime(
-                  duration: Duration(
-                    minutes: _initValues['break_time_min'],
-                    seconds: _initValues['break_time_sec'],
+                EditableTile(
+                  title: 'Rest time',
+                  value: formatTime(
+                    duration: Duration(
+                      minutes: _initValues['resting_time_min'],
+                      seconds: _initValues['resting_time_sec'],
+                    ),
+                  ),
+                  icon: FaIcon(
+                    FontAwesomeIcons.couch,
+                    size: 20,
+                  ),
+                  timer: TimerSelector(
+                    initialValue: _initValues['resting_time_min'],
+                    initialValue2: _initValues['resting_time_sec'],
+                    setValues: _setValues,
+                    key1: 'resting_time_min',
+                    key2: 'resting_time_sec',
                   ),
                 ),
-                icon: FaIcon(
-                  FontAwesomeIcons.coffee,
-                  size: 20,
+                SizedBox(
+                  height: 10,
                 ),
-                timer: TimerSelector(
-                  initialValue: _initValues['break_time_min'],
-                  initialValue2: _initValues['break_time_sec'],
-                  setValues: _setValues,
-                  key1: 'break_time_min',
-                  key2: 'break_time_sec',
+                EditableTile(
+                  title: 'Break',
+                  value: formatTime(
+                    duration: Duration(
+                      minutes: _initValues['break_time_min'],
+                      seconds: _initValues['break_time_sec'],
+                    ),
+                  ),
+                  icon: FaIcon(
+                    FontAwesomeIcons.coffee,
+                    size: 20,
+                  ),
+                  timer: TimerSelector(
+                    initialValue: _initValues['break_time_min'],
+                    initialValue2: _initValues['break_time_sec'],
+                    setValues: _setValues,
+                    key1: 'break_time_min',
+                    key2: 'break_time_sec',
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
