@@ -38,6 +38,7 @@ dependencies:
   uuid: ^2.1.0
   lottie: ^0.4.1
   rate_my_app: ^0.6.1+6
+  admob_flutter: ^0.3.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
