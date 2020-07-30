@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:rate_my_app/rate_my_app.dart';
+import 'package:store_redirect/store_redirect.dart';
 
 import '../screens/new_workout.dart';
 import '../providers/exercise_provider.dart';
@@ -47,11 +48,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.pop<RateMyAppDialogButton>(
                         context, RateMyAppDialogButton.rate);
 
-                    if (stars <= 3) {
-                      print('Navigate to contact screen');
-                    } else {
-                      print('navigate to app store and leave a review');
-                    }
+                    //if (stars <= 3) {
+                    //  print('Navigate to contact screen');
+                    //} else {
+                    //  print('navigate to app store and leave a review');
+                    //}
+
+                    StoreRedirect.redirect(
+                      androidAppId: "com.iyaffle.rangoli",
+                    );
+
                     print('Thanks for the ' +
                         (stars == null ? '0' : stars.round().toString()) +
                         ' star(s) !');

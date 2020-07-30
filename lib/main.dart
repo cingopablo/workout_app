@@ -11,7 +11,7 @@ import './screens/workout_preview_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  Admob.initialize('ca-app-pub-3940256099942544~1458002511');
+  Admob.initialize('com.example.workout_app');
   runApp(
     MyApp(),
   );

@@ -22,17 +22,18 @@ class _WorkoutPreviewScreenState extends State<WorkoutPreviewScreen> {
 
   @override
   initState() {
+    _admobInterstitial = createAdvert();
+    _admobInterstitial.load();
     super.initState();
-    print('init admob');
-    _admobInterstitial = AdmobInterstitial(
-      adUnitId: 'ca-app-pub-3940256099942544/4411468910',
+  }
+
+  AdmobInterstitial createAdvert() {
+    return AdmobInterstitial(
+      adUnitId: 'ca-app-pub-3940256099942544/8691691433',
       listener: (AdmobAdEvent event, Map<String, dynamic> args) {
-        print('listener');
         if (event == AdmobAdEvent.loaded) {
-          print('admob loaded');
           _admobInterstitial.show();
         } else if (event == AdmobAdEvent.closed) {
-          print('admob closed');
           _admobInterstitial.dispose();
         }
       },
