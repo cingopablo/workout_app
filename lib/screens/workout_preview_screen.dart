@@ -1,3 +1,4 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,8 +10,34 @@ import '../widgets/custom_flexible_bar.dart';
 import '../screens/workout_timer_screen.dart';
 import '../widgets/workout_preview_screen/preview_tile.dart';
 
-class WorkoutPreviewScreen extends StatelessWidget {
+class WorkoutPreviewScreen extends StatefulWidget {
   static const routeName = '/workout-detail';
+
+  @override
+  _WorkoutPreviewScreenState createState() => _WorkoutPreviewScreenState();
+}
+
+class _WorkoutPreviewScreenState extends State<WorkoutPreviewScreen> {
+  AdmobInterstitial _admobInterstitial;
+
+  @override
+  initState() {
+    super.initState();
+    print('init admob');
+    _admobInterstitial = AdmobInterstitial(
+      adUnitId: 'ca-app-pub-3940256099942544/4411468910',
+      listener: (AdmobAdEvent event, Map<String, dynamic> args) {
+        print('listener');
+        if (event == AdmobAdEvent.loaded) {
+          print('admob loaded');
+          _admobInterstitial.show();
+        } else if (event == AdmobAdEvent.closed) {
+          print('admob closed');
+          _admobInterstitial.dispose();
+        }
+      },
+    );
+  }
 
   Duration getTotalTime(exercise) {
     return (exercise.exerciseTime * exercise.sets * exercise.repetitions) +

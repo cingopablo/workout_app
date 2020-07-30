@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../models/exercise.dart';
 import '../../utils/format_time.dart';
@@ -36,7 +36,6 @@ class WorkoutTile extends StatelessWidget {
         },
         child: Container(
           width: double.infinity,
-          //height: 130.0,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20.0),
