@@ -1,3 +1,4 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -20,6 +21,28 @@ class NewWorkout extends StatefulWidget {
 }
 
 class _NewWorkoutState extends State<NewWorkout> {
+  AdmobInterstitial _admobInterstitial;
+
+  @override
+  initState() {
+    _admobInterstitial = createAdvert();
+    _admobInterstitial.load();
+    super.initState();
+  }
+
+  AdmobInterstitial createAdvert() {
+    return AdmobInterstitial(
+      adUnitId: 'ca-app-pub-3940256099942544/8691691433',
+      listener: (AdmobAdEvent event, Map<String, dynamic> args) {
+        if (event == AdmobAdEvent.loaded) {
+          _admobInterstitial.show();
+        } else if (event == AdmobAdEvent.closed) {
+          _admobInterstitial.dispose();
+        }
+      },
+    );
+  }
+
   final _form = GlobalKey<FormState>();
   var _initValues = {
     'title': '',

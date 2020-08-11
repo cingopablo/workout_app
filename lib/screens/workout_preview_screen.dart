@@ -1,4 +1,3 @@
-import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,28 +17,6 @@ class WorkoutPreviewScreen extends StatefulWidget {
 }
 
 class _WorkoutPreviewScreenState extends State<WorkoutPreviewScreen> {
-  AdmobInterstitial _admobInterstitial;
-
-  @override
-  initState() {
-    _admobInterstitial = createAdvert();
-    _admobInterstitial.load();
-    super.initState();
-  }
-
-  AdmobInterstitial createAdvert() {
-    return AdmobInterstitial(
-      adUnitId: 'ca-app-pub-3940256099942544/8691691433',
-      listener: (AdmobAdEvent event, Map<String, dynamic> args) {
-        if (event == AdmobAdEvent.loaded) {
-          _admobInterstitial.show();
-        } else if (event == AdmobAdEvent.closed) {
-          _admobInterstitial.dispose();
-        }
-      },
-    );
-  }
-
   Duration getTotalTime(exercise) {
     return (exercise.exerciseTime * exercise.sets * exercise.repetitions) +
         (exercise.restTime * exercise.sets * (exercise.repetitions - 1)) +
