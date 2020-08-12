@@ -40,6 +40,7 @@ dependencies:
   rate_my_app: ^0.6.1+6
   admob_flutter: ^0.3.4
   store_redirect: ^1.0.2
+  custom_splash: ^0.0.2
   
 dev_dependencies:
   flutter_launcher_icons: ^0.7.5
@@ -65,6 +66,7 @@ flutter:
     - assets/sounds/dingdingding.mp3
     - assets/sounds/pip.mp3
     - assets/images/warmup.json
+    - assets/launcher/icon.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,4 +1,5 @@
 import 'package:admob_flutter/admob_flutter.dart';
+import 'package:custom_splash/custom_splash.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -74,8 +75,19 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
+        home: CustomSplash(
+          imagePath: 'assets/launcher/icon.png',
+          backGroundColor: Colors.deepOrange,
+          animationEffect: 'zoom-in',
+          logoSize: 200,
+          home: HomeScreen(),
+          // customFunction: duringSplash,
+          duration: 2500,
+          type: CustomSplashType.StaticDuration,
+          // outputAndHome: op,
+        ),
         routes: {
-          '/': (ctx) => HomeScreen(),
+          // '/': (ctx) => HomeScreen(),
           WorkoutPreviewScreen.routeName: (ctx) => WorkoutPreviewScreen(),
           WorkoutTimerScreen.routeName: (ctx) => WorkoutTimerScreen(
               selectedExercise:
