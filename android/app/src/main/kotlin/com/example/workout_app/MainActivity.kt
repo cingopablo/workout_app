@@ -1,4 +1,4 @@
-package com.example.workout_app
+package com.pablocingolani.training_timer
 
 import io.flutter.embedding.android.FlutterActivity
 

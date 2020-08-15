@@ -32,7 +32,7 @@ class _NewWorkoutState extends State<NewWorkout> {
 
   AdmobInterstitial createAdvert() {
     return AdmobInterstitial(
-      adUnitId: 'ca-app-pub-3940256099942544/8691691433',
+      adUnitId: 'ca-app-pub-6625840862486563/3951436926',
       listener: (AdmobAdEvent event, Map<String, dynamic> args) {
         if (event == AdmobAdEvent.loaded) {
           _admobInterstitial.show();

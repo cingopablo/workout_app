@@ -24,60 +24,60 @@ class _HomeScreenState extends State<HomeScreen> {
     minLaunches: 7,
     remindDays: 2,
     remindLaunches: 5,
-    // googlePlayIdentifier: ''
+    googlePlayIdentifier: 'com.pablocingolani.training_timer',
   );
 
   @override
   void initState() {
     super.initState();
     _rateMyApp.init().then((_) => {
-          //if (_rateMyApp.shouldOpenDialog)
-          //{
-          _rateMyApp.showStarRateDialog(
-            context,
-            title: 'Are you enjoying this app?',
-            message:
-                'If you like this app, please take a little bit of your time to review it !\nIt really helps us and it shouldn\'t take you more than one minute.',
-            actionsBuilder: (context, stars) {
-              return [
-                FlatButton(
-                  child: Text('OK'),
-                  onPressed: () async {
-                    await _rateMyApp
-                        .callEvent(RateMyAppEventType.rateButtonPressed);
-                    Navigator.pop<RateMyAppDialogButton>(
-                        context, RateMyAppDialogButton.rate);
+          if (_rateMyApp.shouldOpenDialog)
+            {
+              _rateMyApp.showStarRateDialog(
+                context,
+                title: 'Are you enjoying this app?',
+                message:
+                    'If you like this app, please take a little bit of your time to review it !\nIt really helps us and it shouldn\'t take you more than one minute.',
+                actionsBuilder: (context, stars) {
+                  return [
+                    FlatButton(
+                      child: Text('OK'),
+                      onPressed: () async {
+                        await _rateMyApp
+                            .callEvent(RateMyAppEventType.rateButtonPressed);
+                        Navigator.pop<RateMyAppDialogButton>(
+                            context, RateMyAppDialogButton.rate);
 
-                    //if (stars <= 3) {
-                    //  print('Navigate to contact screen');
-                    //} else {
-                    //  print('navigate to app store and leave a review');
-                    //}
+                        //if (stars <= 3) {
+                        //  print('Navigate to contact screen');
+                        //} else {
+                        //  print('navigate to app store and leave a review');
+                        //}
 
-                    StoreRedirect.redirect(
-                      androidAppId: "com.iyaffle.rangoli",
-                    );
+                        StoreRedirect.redirect(
+                          androidAppId: "com.iyaffle.rangoli",
+                        );
 
-                    print('Thanks for the ' +
-                        (stars == null ? '0' : stars.round().toString()) +
-                        ' star(s) !');
+                        print('Thanks for the ' +
+                            (stars == null ? '0' : stars.round().toString()) +
+                            ' star(s) !');
 
-                    DoNotOpenAgainCondition();
-                  },
+                        DoNotOpenAgainCondition();
+                      },
+                    ),
+                  ];
+                },
+                ignoreIOS: false,
+                dialogStyle: DialogStyle(
+                  titleAlign: TextAlign.center,
+                  messageAlign: TextAlign.center,
+                  messagePadding: EdgeInsets.only(bottom: 20),
                 ),
-              ];
-            },
-            ignoreIOS: false,
-            dialogStyle: DialogStyle(
-              titleAlign: TextAlign.center,
-              messageAlign: TextAlign.center,
-              messagePadding: EdgeInsets.only(bottom: 20),
-            ),
-            starRatingOptions: StarRatingOptions(),
-            onDismissed: () =>
-                _rateMyApp.callEvent(RateMyAppEventType.laterButtonPressed),
-          )
-          //  }
+                starRatingOptions: StarRatingOptions(),
+                onDismissed: () =>
+                    _rateMyApp.callEvent(RateMyAppEventType.laterButtonPressed),
+              )
+            }
         });
   }
 

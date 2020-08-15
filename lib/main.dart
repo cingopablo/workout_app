@@ -12,7 +12,7 @@ import './screens/workout_preview_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  Admob.initialize('com.example.workout_app');
+  Admob.initialize('com.pablocingolani.training_timer');
   runApp(
     MyApp(),
   );
@@ -77,12 +77,12 @@ class MyApp extends StatelessWidget {
         ),
         home: CustomSplash(
           imagePath: 'assets/launcher/icon.png',
-          backGroundColor: Colors.deepOrange,
+          backGroundColor: Color(0xFF823FCC),
           animationEffect: 'zoom-in',
-          logoSize: 200,
+          logoSize: 100,
           home: HomeScreen(),
           // customFunction: duringSplash,
-          duration: 2500,
+          duration: 2000,
           type: CustomSplashType.StaticDuration,
           // outputAndHome: op,
         ),
